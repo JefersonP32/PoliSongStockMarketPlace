@@ -1,0 +1,7 @@
+/target/
+nbproject/private/
+*.log
+*.class
+*.swp
+*.tmp
+.DS_Store
