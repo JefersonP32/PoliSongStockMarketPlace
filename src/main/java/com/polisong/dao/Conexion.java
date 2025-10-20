@@ -9,7 +9,7 @@ public class Conexion {
     public static Connection getConexion() {
         try {
             Connection conn = DriverManager.getConnection(URL);
-            System.out.println("Conectado correctamente a la base de datos SQLite");
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
             return conn;
         } catch (SQLException e) {
             System.err.println("Error al conectar: " + e.getMessage());

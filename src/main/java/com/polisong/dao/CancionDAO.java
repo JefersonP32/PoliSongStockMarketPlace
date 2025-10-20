@@ -24,7 +24,7 @@ public class CancionDAO {
                     rs.getString("artista"),
                     rs.getDouble("precio_mp3"),
                     rs.getDouble("duracion"),
-                    rs.getDouble("tamaño_mb"),
+                    rs.getDouble("tamano_mb"),
                     rs.getInt("calidad_kbps"),
                     rs.getInt("id_genero")
                 );
@@ -52,7 +52,7 @@ public class CancionDAO {
                     rs.getString("artista"),
                     rs.getDouble("precio_mp3"),
                     rs.getDouble("duracion"),
-                    rs.getDouble("tamaño_mb"),
+                    rs.getDouble("tamano_mb"),
                     rs.getInt("calidad_kbps"),
                     rs.getInt("id_genero")
                 );
@@ -79,7 +79,7 @@ public class CancionDAO {
                     rs.getString("artista"),
                     rs.getDouble("precio_mp3"),
                     rs.getDouble("duracion"),
-                    rs.getDouble("tamaño_mb"),
+                    rs.getDouble("tamano_mb"),
                     rs.getInt("calidad_kbps"),
                     rs.getInt("id_genero")
                 );
@@ -108,7 +108,7 @@ public class CancionDAO {
                     rs.getString("artista"),
                     rs.getDouble("precio_mp3"),
                     rs.getDouble("duracion"),
-                    rs.getDouble("tamaño_mb"),
+                    rs.getDouble("tamano_mb"),
                     rs.getInt("calidad_kbps"),
                     rs.getInt("id_genero")
                 );

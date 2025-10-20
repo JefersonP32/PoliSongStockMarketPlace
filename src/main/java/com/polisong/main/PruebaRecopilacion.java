@@ -10,7 +10,7 @@ public class PruebaRecopilacion {
 
         //probarCrearRecopilacion(manager);
         //probarAgregarCancion(manager);
-        probarListarRecopilaciones(manager);
+        //probarListarRecopilaciones(manager);
         //probarEliminarRecopilacion(manager);
     }
 
@@ -19,7 +19,7 @@ public class PruebaRecopilacion {
         Recopilacion recop = new Recopilacion(
                 "Recopilación Rock Clásico",
                 "Colección de canciones de rock de los 80s.",
-                4,  // id del usuario comprador
+                1,  // id del usuario comprador
                 true // true = pública
         );
 
@@ -38,7 +38,7 @@ public class PruebaRecopilacion {
     }
 
     private static void probarAgregarCancion(RecopilacionController manager) {
-        int idRecopilacion = 3; // recopilación existente
+        int idRecopilacion = 6; // recopilación existente
         int idCancion = 3;      // canción existente
 
         boolean exito = manager.agregarCancionARecopilacion(idRecopilacion, idCancion);
@@ -51,12 +51,12 @@ public class PruebaRecopilacion {
     }
 
     private static void probarListarRecopilaciones(RecopilacionController manager) {
-        int idUsuario = 3; // comprador autenticado
+        int idUsuario = 4; // comprador autenticado
         manager.listarRecopilaciones(idUsuario);
     }
 
     private static void probarEliminarRecopilacion(RecopilacionController manager) {
-        int idRecopilacion = 3; // recopilación existente
+        int idRecopilacion = 6; // recopilación existente
 
         boolean exito = manager.eliminarRecopilacion(idRecopilacion);
 
