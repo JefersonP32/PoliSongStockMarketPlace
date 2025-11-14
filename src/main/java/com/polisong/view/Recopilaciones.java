@@ -20,12 +20,10 @@ public class Recopilaciones extends javax.swing.JFrame {
      */
     public Recopilaciones() {
         initComponents();
+        setLocationRelativeTo(null);
         personalizarTabla();
         personalizarBoton(jButtonCrear, new Color(100,100,100), new Color(220, 53, 69)); // rojo → gris oscuro
         personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100,100,100)); // gris → gris más oscuro
-
-        
-
     }
 
     /**
@@ -46,6 +44,7 @@ public class Recopilaciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 1200, 600));
         setMinimumSize(new java.awt.Dimension(1200, 660));
+        setUndecorated(true);
         setSize(new java.awt.Dimension(1200, 660));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -85,7 +84,7 @@ public class Recopilaciones extends javax.swing.JFrame {
                 jButtonCrearActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 110, 40));
+        getContentPane().add(jButtonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 120, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Recopilaciones.png"))); // NOI18N
         jLabel1.setText("jLabel1");

@@ -50,6 +50,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -73,6 +74,11 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         Atras.setBorder(null);
         Atras.setContentAreaFilled(false);
         Atras.setFocusPainted(false);
+        Atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtrasActionPerformed(evt);
+            }
+        });
         getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 40, 40));
 
         btnCrear.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
@@ -87,7 +93,6 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         getContentPane().add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 370, 70));
-        jTextArea1.getAccessibleContext().setAccessibleParent(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FormReco.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -103,6 +108,11 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
+    new Recopilaciones().setVisible(true);  
+    this.dispose();  // cierra la pantalla actual        // TODO add your handling code here:
+    }//GEN-LAST:event_AtrasActionPerformed
 
     /**
      * @param args the command line arguments
