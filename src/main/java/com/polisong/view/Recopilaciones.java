@@ -4,6 +4,11 @@
  */
 package com.polisong.view;
 
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+
 /**
  *
  * @author Jeferson
@@ -16,6 +21,11 @@ public class Recopilaciones extends javax.swing.JFrame {
     public Recopilaciones() {
         initComponents();
         personalizarTabla();
+        personalizarBoton(jButtonCrear, new Color(100,100,100), new Color(220, 53, 69)); // rojo → gris oscuro
+        personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100,100,100)); // gris → gris más oscuro
+
+        
+
     }
 
     /**
@@ -29,8 +39,8 @@ public class Recopilaciones extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
+        jButtonCrear = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,23 +65,27 @@ public class Recopilaciones extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 460, 210));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 460, 220));
 
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 580, 90, 30));
 
-        jButton2.setText("Crear Playlist");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCrear.setText("Crear Playlist");
+        jButtonCrear.setBorder(null);
+        jButtonCrear.setBorderPainted(false);
+        jButtonCrear.setFocusPainted(false);
+        jButtonCrear.setFocusable(false);
+        jButtonCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonCrearActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        getContentPane().add(jButtonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 110, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Recopilaciones.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -80,13 +94,15 @@ public class Recopilaciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
+        FormularioRecopilacion form = new FormularioRecopilacion(this, true); // (padre, modal)
+    form.setLocationRelativeTo(this); // centrar
+    form.setVisible(true);
+    }//GEN-LAST:event_jButtonCrearActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,9 +139,10 @@ public class Recopilaciones extends javax.swing.JFrame {
         });
     }
     
+    
     private void personalizarTabla() {
     // 🔹 Fuente base moderna
-    jTable1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
+    jTable1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
     jTable1.setRowHeight(30);
     jTable1.setBackground(java.awt.Color.WHITE);
     jTable1.setForeground(new java.awt.Color(40, 40, 40));
@@ -163,11 +180,45 @@ public class Recopilaciones extends javax.swing.JFrame {
     jScrollPane1.getViewport().setBackground(java.awt.Color.WHITE);
 }
 
+private void personalizarBoton(JButton boton, Color colorNormal, Color colorHover) {
+    // 🔹 Color base
+    boton.setBackground(colorNormal);
+    boton.setForeground(Color.WHITE);
+    boton.setFont(new java.awt.Font("Bahnschrift", java.awt.Font.BOLD, 12));
+
+    
+    // 🔹 Forzar fondo sin interferencia de Nimbus
+    boton.setOpaque(true);
+    boton.setContentAreaFilled(true);
+    boton.setBorderPainted(false);
+    boton.setFocusPainted(false);
+    boton.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
+    
+    // 🔹 Quitar el enfoque azul de Nimbus
+    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+    
+    // 🔹 Efecto hover (cambio de color)
+    boton.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            boton.setBackground(colorHover);
+        }
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            boton.setBackground(colorNormal);
+        }
+    });
+}
+
+
+
+
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCrear;
+    private javax.swing.JButton jButtonEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
