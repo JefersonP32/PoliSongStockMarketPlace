@@ -22,6 +22,10 @@ public class Recopilaciones extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         personalizarTabla();
+        configurarBotonSoloTexto(inicio);
+    configurarBotonSoloTexto(catalogo);
+    configurarBotonSoloTexto(playlist);
+    configurarBotonSoloTexto(contacto);
         personalizarBoton(jButtonCrear, new Color(100,100,100), new Color(220, 53, 69)); // rojo → gris oscuro
         personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100,100,100)); // gris → gris más oscuro
     }
@@ -38,7 +42,12 @@ public class Recopilaciones extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButtonEliminar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jButtonCrear = new javax.swing.JButton();
+        playlist = new javax.swing.JButton();
+        catalogo = new javax.swing.JButton();
+        contacto = new javax.swing.JButton();
+        inicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,6 +83,9 @@ public class Recopilaciones extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 580, 90, 30));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Disco - 1.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 30, 190, 120));
+
         jButtonCrear.setText("Crear Playlist");
         jButtonCrear.setBorder(null);
         jButtonCrear.setBorderPainted(false);
@@ -85,6 +97,27 @@ public class Recopilaciones extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 120, 40));
+
+        playlist.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        playlist.setText("Playlist");
+        getContentPane().add(playlist, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+
+        catalogo.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        catalogo.setText("Catálogo");
+        getContentPane().add(catalogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
+
+        contacto.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        contacto.setText("Contacto");
+        getContentPane().add(contacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
+
+        inicio.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        inicio.setText("Inicio");
+        inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Recopilaciones.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -102,6 +135,10 @@ public class Recopilaciones extends javax.swing.JFrame {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,6 +246,40 @@ private void personalizarBoton(JButton boton, Color colorNormal, Color colorHove
     });
 }
 
+private void configurarBotonSoloTexto(javax.swing.JButton boton) {
+    // Quitar bordes y fondo
+    boton.setBorder(null);
+    boton.setFocusPainted(false);
+    boton.setContentAreaFilled(false);
+    boton.setOpaque(false);
+    boton.setBorderPainted(false);
+
+    // Colores
+    Color colorNormal = Color.WHITE;
+    Color colorHover = new Color(255, 54, 54); // rgba(37, 150, 190)
+
+    boton.setForeground(colorNormal);
+
+    // Guardar texto original
+    String textoOriginal = boton.getText();
+
+    // Eventos del mouse
+    boton.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent e) {
+            boton.setForeground(colorHover); // cambia a rgba
+            boton.setText("<html><u>" + textoOriginal + "</u></html>"); // subrayado
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent e) {
+            boton.setForeground(colorNormal); // vuelve a blanco
+            boton.setText(textoOriginal); // sin subrayado
+        }
+    });
+}
+
+
 
 
 
@@ -216,10 +287,15 @@ private void personalizarBoton(JButton boton, Color colorNormal, Color colorHove
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton catalogo;
+    private javax.swing.JButton contacto;
+    private javax.swing.JButton inicio;
     private javax.swing.JButton jButtonCrear;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton playlist;
     // End of variables declaration//GEN-END:variables
 }

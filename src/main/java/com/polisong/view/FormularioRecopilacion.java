@@ -12,6 +12,7 @@ import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.UIDefaults;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -28,7 +29,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         estilizarCampo(jTextField1);
         estilizarTextAreaPlano(jTextArea1);
         personalizarBoton();
-        
+        getRootPane().setBorder(new LineBorder(Color.DARK_GRAY, 3, true));
 
     }
 
@@ -46,6 +47,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         Atras = new javax.swing.JButton();
         btnCrear = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
@@ -89,6 +91,10 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, 90, 30));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Disco.PNG"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, -30, 130, 90));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -262,6 +268,7 @@ private void personalizarBoton() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
