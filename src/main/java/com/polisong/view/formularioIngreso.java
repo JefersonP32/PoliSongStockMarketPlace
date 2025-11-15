@@ -4,17 +4,27 @@
  */
 package com.polisong.view;
 
+import javax.swing.JOptionPane;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+
 /**
  *
  * @author CAMILO
  */
 public class formularioIngreso extends javax.swing.JFrame {
+    
+    Border bordeOriginal;
+
 
     /**
      * Creates new form formularioIngreso
      */
     public formularioIngreso() {
         initComponents();
+        bordeOriginal = jTextField1.getBorder(); // guardamos el borde original del campo de correo
+
     }
 
     /**
@@ -43,7 +53,7 @@ public class formularioIngreso extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -135,21 +145,26 @@ public class formularioIngreso extends javax.swing.JFrame {
         });
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 280, 330, 30));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jPasswordField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, 330, 30));
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, 330, 30));
 
         jButton2.setBackground(new java.awt.Color(255, 0, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("INICIAR SESION");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 390, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/formulario inicio polisong.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -157,15 +172,89 @@ public class formularioIngreso extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
+   
+    private boolean validarCorreo(String correo) {
+    String patronCorreo = "^[A-Za-z0-9+_.-]+@(.+)$";
+    return correo.matches(patronCorreo);
+}
+  
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         registro rg = new registro();
         rg.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         // Obtener datos de los campos
+    String correo = jTextField1.getText().trim();
+    String contrasena = String.valueOf(jPasswordField1.getPassword()).trim();
+    
+        // Resetear bordes antes de comenzar
+    jTextField1.setBorder(bordeOriginal);
+    jPasswordField1.setBorder(bordeOriginal);
+    
+        // 1. Validar campos vacíos
+    if (correo.isEmpty() || contrasena.isEmpty()) {
+        JOptionPane.showMessageDialog(this, 
+            "Por favor llene todos los campos.", 
+            "Campos incompletos", 
+            JOptionPane.WARNING_MESSAGE);
+        
+        if (correo.isEmpty()) {
+            jTextField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        }
+        
+         if (contrasena.isEmpty()) {
+            jPasswordField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        }
+         
+        return;
+    }
+    
+    // 2. Validar formato del correo
+    if (!validarCorreo(correo)) {
+        JOptionPane.showMessageDialog(this, 
+            "Ingrese un correo electrónico válido.", 
+            "Correo no válido", 
+            JOptionPane.WARNING_MESSAGE);
+        
+        jTextField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+
+        return;
+    }
+    
+    // 3. Validar correo que termine en "@correo.com"
+    if (!correo.endsWith("@gmail.com")) {
+        JOptionPane.showMessageDialog(this,
+        "El correo debe terminar en '@correo.com'.",
+        "Correo no válido",
+        JOptionPane.WARNING_MESSAGE);
+        
+        jTextField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        return;
+    }
+    
+    // 4. Validar contraseña solo numérica
+    if (!contrasena.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this,
+        "La contraseña debe contener únicamente números.",
+        "Contraseña no válida",
+        JOptionPane.WARNING_MESSAGE);
+        
+        jPasswordField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        return;
+    }
+    
+       // 5. Si todo está correcto
+    JOptionPane.showMessageDialog(this, 
+        "Inicio de sesión exitoso.", 
+        "Bienvenido", 
+        JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,7 +310,7 @@ public class formularioIngreso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
