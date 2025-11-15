@@ -4,17 +4,28 @@
  */
 package com.polisong.view;
 
+import javax.swing.border.Border;
+import javax.swing.BorderFactory;
+import java.awt.Color;
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author CAMILO
  */
 public class registro extends javax.swing.JFrame {
+    
+    Border bordeOriginal;
+
 
     /**
      * Creates new form registro
      */
     public registro() {
         initComponents();
+        bordeOriginal = jTextField1.getBorder();
+
     }
 
     /**
@@ -44,8 +55,8 @@ public class registro extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -127,13 +138,18 @@ public class registro extends javax.swing.JFrame {
         });
         jPanel3.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 290, 30));
         jPanel3.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 290, 30));
-        jPanel3.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, 290, 30));
-        jPanel3.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 440, 290, 30));
+        jPanel3.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, 290, 30));
+        jPanel3.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 290, 30));
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("REGISTRO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
@@ -174,6 +190,98 @@ public class registro extends javax.swing.JFrame {
         fi.setVisible(true);
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+           // Recuperar valores
+    String nombre = jTextField1.getText().trim();
+    String apellido = jTextField2.getText().trim();
+    String correo = jTextField3.getText().trim();
+    String contrasena = String.valueOf(jPasswordField1.getPassword()).trim();
+    String confirmar = String.valueOf(jPasswordField2.getPassword()).trim();
+    
+        // Resetear bordes
+    jTextField1.setBorder(bordeOriginal);
+    jTextField2.setBorder(bordeOriginal);
+    jTextField3.setBorder(bordeOriginal);
+    jPasswordField1.setBorder(bordeOriginal);
+    jPasswordField2.setBorder(bordeOriginal);
+    
+        // 1. Validar campos vacíos
+    if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmar.isEmpty()) {
+        JOptionPane.showMessageDialog(this, 
+            "Todos los campos son obligatorios.", 
+            "Campos incompletos", 
+            JOptionPane.WARNING_MESSAGE);
+
+        if (nombre.isEmpty()) jTextField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        if (apellido.isEmpty()) jTextField2.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        if (correo.isEmpty()) jTextField3.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        if (contrasena.isEmpty()) jPasswordField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        if (confirmar.isEmpty()) jPasswordField2.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+
+        return;
+    }
+    
+        // 2. Validar nombre y apellido (solo letras)
+    if (!nombre.matches("[A-Za-zÁÉÍÓÚáéíóúñÑ ]+")) {
+        JOptionPane.showMessageDialog(this, 
+            "El nombre solo debe contener letras.", 
+            "Dato no válido", 
+            JOptionPane.WARNING_MESSAGE);
+        jTextField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        return;
+    }
+    
+        if (!apellido.matches("[A-Za-zÁÉÍÓÚáéíóúñÑ ]+")) {
+        JOptionPane.showMessageDialog(this, 
+            "El apellido solo debe contener letras.", 
+            "Dato no válido", 
+            JOptionPane.WARNING_MESSAGE);
+        jTextField2.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        return;
+    }
+        
+         // 3. Validar correo que termine en @correo.com
+    if (!correo.endsWith("@gmail.com")) {
+        JOptionPane.showMessageDialog(this, 
+            "El correo debe terminar en '@gmail.com.com'.", 
+            "Correo no válido", 
+            JOptionPane.WARNING_MESSAGE);
+        jTextField3.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        return;
+    }
+    
+        // 4. Validar contraseña solo numérica
+    if (!contrasena.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, 
+            "La contraseña debe contener solo números.", 
+            "Contraseña inválida", 
+            JOptionPane.WARNING_MESSAGE);
+        jPasswordField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        return;
+    }
+    
+        // 5. Validar coincidencia de contraseñas
+    if (!contrasena.equals(confirmar)) {
+        JOptionPane.showMessageDialog(this, 
+            "Las contraseñas no coinciden.", 
+            "Error", 
+            JOptionPane.WARNING_MESSAGE);
+        jPasswordField2.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        return;
+    }
+    
+        // 6. Todo correcto → registrar usuario
+    JOptionPane.showMessageDialog(this, 
+        "Cuenta creada correctamente.", 
+        "Registro exitoso", 
+        JOptionPane.INFORMATION_MESSAGE);
+    
+        // 7. Redirigir al frame de inicio de sesión
+    formularioIngreso login = new formularioIngreso();  
+    login.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,10 +337,10 @@ public class registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

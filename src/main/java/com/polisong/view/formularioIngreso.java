@@ -225,7 +225,7 @@ public class formularioIngreso extends javax.swing.JFrame {
     // 3. Validar correo que termine en "@correo.com"
     if (!correo.endsWith("@gmail.com")) {
         JOptionPane.showMessageDialog(this,
-        "El correo debe terminar en '@correo.com'.",
+        "El correo debe terminar en '@gmail.com'.",
         "Correo no válido",
         JOptionPane.WARNING_MESSAGE);
         
