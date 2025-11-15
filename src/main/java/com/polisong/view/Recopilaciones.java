@@ -4,10 +4,14 @@
  */
 package com.polisong.view;
 
+import com.polisong.controller.RecopilacionController;
+import com.polisong.model.Recopilacion;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +32,7 @@ public class Recopilaciones extends javax.swing.JFrame {
     configurarBotonSoloTexto(contacto);
         personalizarBoton(jButtonCrear, new Color(100,100,100), new Color(220, 53, 69)); // rojo → gris oscuro
         personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100,100,100)); // gris → gris más oscuro
+        cargarRecopilacionesEnTabla(); 
     }
 
     /**
@@ -40,7 +45,7 @@ public class Recopilaciones extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableRecopilaciones = new javax.swing.JTable();
         jButtonEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButtonCrear = new javax.swing.JButton();
@@ -57,7 +62,7 @@ public class Recopilaciones extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1200, 660));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableRecopilaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -67,13 +72,28 @@ public class Recopilaciones extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nombre", "Descripción"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableRecopilaciones.getTableHeader().setResizingAllowed(false);
+        tableRecopilaciones.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tableRecopilaciones);
+        if (tableRecopilaciones.getColumnModel().getColumnCount() > 0) {
+            tableRecopilaciones.getColumnModel().getColumn(0).setResizable(false);
+            tableRecopilaciones.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tableRecopilaciones.getColumnModel().getColumn(1).setResizable(false);
+            tableRecopilaciones.getColumnModel().getColumn(1).setPreferredWidth(140);
+            tableRecopilaciones.getColumnModel().getColumn(2).setResizable(false);
+            tableRecopilaciones.getColumnModel().getColumn(2).setPreferredWidth(240);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 460, 220));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 490, 220));
 
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -178,38 +198,38 @@ public class Recopilaciones extends javax.swing.JFrame {
     
     private void personalizarTabla() {
     // 🔹 Fuente base moderna
-    jTable1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
-    jTable1.setRowHeight(30);
-    jTable1.setBackground(java.awt.Color.WHITE);
-    jTable1.setForeground(new java.awt.Color(40, 40, 40));
+    tableRecopilaciones.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+    tableRecopilaciones.setRowHeight(30);
+    tableRecopilaciones.setBackground(java.awt.Color.WHITE);
+    tableRecopilaciones.setForeground(new java.awt.Color(40, 40, 40));
 
     // 🎨 Renderer personalizado para forzar color del encabezado
-    javax.swing.table.JTableHeader header = jTable1.getTableHeader();
+    javax.swing.table.JTableHeader header = tableRecopilaciones.getTableHeader();
     header.setDefaultRenderer((table, value, isSelected, hasFocus, row, column) -> {
         javax.swing.JLabel lbl = new javax.swing.JLabel(value.toString());
         lbl.setOpaque(true);
         lbl.setBackground(new java.awt.Color(96, 96, 96));   // gris oscuro #606060
         lbl.setForeground(new java.awt.Color(240, 240, 240)); // texto claro
         lbl.setFont(new java.awt.Font("Segoe UI Semibold", java.awt.Font.PLAIN, 13));
-        lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbl.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(80, 80, 80))); // línea inferior sutil
         return lbl;
     });
 
     // 🔹 Quitar líneas verticales y dejar solo horizontales suaves
-    jTable1.setShowHorizontalLines(true);
-    jTable1.setShowVerticalLines(false);
-    jTable1.setGridColor(new java.awt.Color(230, 230, 230));
-    jTable1.setIntercellSpacing(new java.awt.Dimension(0, 1));
+    tableRecopilaciones.setShowHorizontalLines(true);
+    tableRecopilaciones.setShowVerticalLines(false);
+    tableRecopilaciones.setGridColor(new java.awt.Color(230, 230, 230));
+    tableRecopilaciones.setIntercellSpacing(new java.awt.Dimension(0, 1));
 
     // 🔹 Padding interno tipo web
     javax.swing.table.DefaultTableCellRenderer cellRenderer = new javax.swing.table.DefaultTableCellRenderer();
     cellRenderer.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 14, 8, 14));
-    jTable1.setDefaultRenderer(Object.class, cellRenderer);
+    tableRecopilaciones.setDefaultRenderer(Object.class, cellRenderer);
 
     // 🔹 Selección moderna
-    jTable1.setSelectionBackground(new java.awt.Color(230, 240, 255));
-    jTable1.setSelectionForeground(java.awt.Color.BLACK);
+    tableRecopilaciones.setSelectionBackground(new java.awt.Color(230, 240, 255));
+    tableRecopilaciones.setSelectionForeground(java.awt.Color.BLACK);
 
     // 🔹 Quitar bordes del scroll
     jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -280,6 +300,24 @@ private void configurarBotonSoloTexto(javax.swing.JButton boton) {
 }
 
 
+private void cargarRecopilacionesEnTabla() {
+    DefaultTableModel modelo = (DefaultTableModel) tableRecopilaciones.getModel();
+    modelo.setRowCount(0);
+
+    RecopilacionController controller = new RecopilacionController();
+    List<Recopilacion> lista = controller.listarRecopilaciones(2); // ← tu id real
+
+    for (Recopilacion r : lista) {
+        modelo.addRow(new Object[]{
+            r.getIdRecopilacion(),
+            r.getNombre(),
+            r.getDescripcion()
+        });
+    }
+}
+
+
+
 
 
 
@@ -295,7 +333,7 @@ private void configurarBotonSoloTexto(javax.swing.JButton boton) {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton playlist;
+    private javax.swing.JTable tableRecopilaciones;
     // End of variables declaration//GEN-END:variables
 }

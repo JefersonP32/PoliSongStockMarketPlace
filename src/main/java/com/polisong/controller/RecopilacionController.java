@@ -4,6 +4,8 @@ import com.polisong.dao.CancionRecopilacionDAO;
 import com.polisong.dao.RecopilacionDAO;
 import com.polisong.model.CancionRecopilacion;
 import com.polisong.model.Recopilacion;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecopilacionController {
     
@@ -69,21 +71,16 @@ public class RecopilacionController {
         return ok;
     }
     
-    // Listar recopilaciones
-    public void listarRecopilaciones(int idUsuario) {
-        if (idUsuario <= 0) {
-            System.err.println("ID de usuario inválido.");
-            return;
-        }
-
-        var lista = dao.listarRecopilacionesPorUsuario(idUsuario);
-        if (lista.isEmpty()) {
-            System.out.println("No se encontraron recopilaciones para este usuario.");
-        } else {
-            System.out.println("Recopilaciones del usuario " + idUsuario + ":");
-            lista.forEach(System.out::println);
-        }
+    // Listar recopilaciones (RETORNA la lista)
+public List<Recopilacion> listarRecopilaciones(int idUsuario) {
+    if (idUsuario <= 0) {
+        System.err.println("ID de usuario inválido.");
+        return new ArrayList<>();  // devuelve lista vacía
     }
+
+    return dao.listarRecopilacionesPorUsuario(idUsuario);
+}
+
     
     public boolean eliminarRecopilacion(int idRecopilacion) {
         if (idRecopilacion <= 0) {
