@@ -4,6 +4,7 @@
  */
 package com.polisong.view;
 
+import com.polisong.controller.RecopilacionController;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.UIDefaults;
 import javax.swing.border.LineBorder;
 
@@ -23,15 +25,20 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
     /**
      * Creates new form FormularioRecopilacion
      */
+    private Recopilaciones ventanaPadre;
+    
     public FormularioRecopilacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        estilizarCampo(jTextField1);
-        estilizarTextAreaPlano(jTextArea1);
+        estilizarCampo(nombre);
+        estilizarTextAreaPlano(descripcion);
         personalizarBoton();
         getRootPane().setBorder(new LineBorder(Color.DARK_GRAY, 3, true));
+        this.ventanaPadre = (Recopilaciones) parent;
 
     }
+    
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,25 +49,25 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Atras = new javax.swing.JButton();
         btnCrear = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextArea1 = new javax.swing.JTextArea();
+        descripcion = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nombreActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 370, 30));
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 370, 30));
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
@@ -96,9 +103,9 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         jLabel4.setText("jLabel4");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, -30, 130, 90));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        getContentPane().add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 370, 70));
+        descripcion.setColumns(20);
+        descripcion.setRows(5);
+        getContentPane().add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 370, 70));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FormReco.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -107,16 +114,51 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nombreActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
+    String nom = nombre.getText().trim();
+    String desc = descripcion.getText().trim();
+    boolean esPublica = false; // no tienes checkbox, entonces siempre privada
+
+    // Validaciones
+    if (nom.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
+        return;
+    }
+
+    if (desc.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "La descripción no puede estar vacía.");
+        return;
+    }
+
+    RecopilacionController controller = new RecopilacionController();
+
+    boolean exito = controller.crearRecopilacion(
+            nom,
+            desc,
+            1,
+            esPublica
+    );
+
+    if (exito) {
+        JOptionPane.showMessageDialog(this, "Recopilación creada correctamente.");
+
+        // Limpiar campos
+        nombre.setText("");
+        descripcion.setText("");
+        ventanaPadre.cargarRecopilacionesEnTabla();
+        
+
+    } else {
+        JOptionPane.showMessageDialog(this, "No se pudo crear la recopilación.");
+    }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
-    new Recopilaciones().setVisible(true);  
+
     this.dispose();  // cierra la pantalla actual        // TODO add your handling code here:
     }//GEN-LAST:event_AtrasActionPerformed
 
@@ -265,11 +307,11 @@ private void personalizarBoton() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Atras;
     private javax.swing.JButton btnCrear;
+    private javax.swing.JTextArea descripcion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

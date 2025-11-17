@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,6 +35,7 @@ public class Recopilaciones extends javax.swing.JFrame {
         personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100,100,100)); // gris → gris más oscuro
         cargarRecopilacionesEnTabla(); 
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -153,7 +155,39 @@ public class Recopilaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCrearActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        // TODO add your handling code here:
+        int fila = tableRecopilaciones.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(this, "Selecciona una recopilación para eliminar.");
+        return;
+    }
+
+    // Obtener ID desde la columna 0
+    int idRecopilacion = Integer.parseInt(
+        tableRecopilaciones.getValueAt(fila, 0).toString()
+    );
+
+    // Confirmación
+    int opcion = JOptionPane.showConfirmDialog(
+        this,
+        "¿Estás seguro de eliminar esta recopilación?",
+        "Confirmar eliminación",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (opcion == JOptionPane.YES_OPTION) {
+
+        RecopilacionController controller = new RecopilacionController();
+
+        boolean exito = controller.eliminarRecopilacion(idRecopilacion);
+
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Recopilación eliminada correctamente.");
+            cargarRecopilacionesEnTabla();  // recargar tabla
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar la recopilación.");
+        }
+    }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
@@ -197,44 +231,82 @@ public class Recopilaciones extends javax.swing.JFrame {
     
     
     private void personalizarTabla() {
-    // 🔹 Fuente base moderna
-    tableRecopilaciones.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
-    tableRecopilaciones.setRowHeight(30);
-    tableRecopilaciones.setBackground(java.awt.Color.WHITE);
-    tableRecopilaciones.setForeground(new java.awt.Color(40, 40, 40));
+    System.out.println("personalizarTabla() ejecutado"); // confirmación en consola
 
-    // 🎨 Renderer personalizado para forzar color del encabezado
+    // ===== ESTILO TABLA =====
+    tableRecopilaciones.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+    tableRecopilaciones.setRowHeight(28);
+    tableRecopilaciones.setFillsViewportHeight(true);
+
+    // Quitar todas las líneas (sin divisiones entre columnas)
+    tableRecopilaciones.setShowGrid(false);
+    tableRecopilaciones.setShowHorizontalLines(false);
+    tableRecopilaciones.setShowVerticalLines(false);
+    tableRecopilaciones.setIntercellSpacing(new java.awt.Dimension(0, 0));
+    tableRecopilaciones.setRowMargin(0);
+
+    // ===== ENCABEZADO: renderer propio gris oscuro y texto a la izquierda =====
     javax.swing.table.JTableHeader header = tableRecopilaciones.getTableHeader();
+    header.setReorderingAllowed(false);
+    header.setResizingAllowed(false);
+    header.setOpaque(true);
+    header.setBackground(new Color(1, 1, 1)); // gris oscuro
+    header.setForeground(Color.WHITE);
+    header.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+    header.setBorder(BorderFactory.createEmptyBorder());
+
     header.setDefaultRenderer((table, value, isSelected, hasFocus, row, column) -> {
-        javax.swing.JLabel lbl = new javax.swing.JLabel(value.toString());
-        lbl.setOpaque(true);
-        lbl.setBackground(new java.awt.Color(96, 96, 96));   // gris oscuro #606060
-        lbl.setForeground(new java.awt.Color(240, 240, 240)); // texto claro
-        lbl.setFont(new java.awt.Font("Segoe UI Semibold", java.awt.Font.PLAIN, 13));
-        lbl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbl.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(80, 80, 80))); // línea inferior sutil
+        javax.swing.JLabel lbl = new javax.swing.JLabel(value == null ? "" : value.toString());
+        lbl.setOpaque(true); // importante para que se pinte el background
+        lbl.setBackground(new Color(107,107,107));
+        lbl.setForeground(Color.WHITE);
+        lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+        lbl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT); // o CENTER/RIGHT
+        lbl.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
         return lbl;
     });
 
-    // 🔹 Quitar líneas verticales y dejar solo horizontales suaves
-    tableRecopilaciones.setShowHorizontalLines(true);
-    tableRecopilaciones.setShowVerticalLines(false);
-    tableRecopilaciones.setGridColor(new java.awt.Color(230, 230, 230));
-    tableRecopilaciones.setIntercellSpacing(new java.awt.Dimension(0, 1));
+    // ===== CELDAS: padding y renderer neutro =====
+    javax.swing.table.DefaultTableCellRenderer cell = new javax.swing.table.DefaultTableCellRenderer();
+    cell.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
+    cell.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+    tableRecopilaciones.setDefaultRenderer(Object.class, cell);
 
-    // 🔹 Padding interno tipo web
-    javax.swing.table.DefaultTableCellRenderer cellRenderer = new javax.swing.table.DefaultTableCellRenderer();
-    cellRenderer.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 14, 8, 14));
-    tableRecopilaciones.setDefaultRenderer(Object.class, cellRenderer);
+    // ===== SELECCIÓN SUAVE =====
+    tableRecopilaciones.setSelectionBackground(new Color(69, 68, 68));
+    tableRecopilaciones.setSelectionForeground(Color.BLACK);
 
-    // 🔹 Selección moderna
-    tableRecopilaciones.setSelectionBackground(new java.awt.Color(230, 240, 255));
-    tableRecopilaciones.setSelectionForeground(java.awt.Color.BLACK);
+    // ===== SCROLL SIMPLE Y DELGADO =====
+    jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
+    jScrollPane1.getViewport().setBackground(Color.WHITE);
 
-    // 🔹 Quitar bordes del scroll
-    jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-    jScrollPane1.getViewport().setBackground(java.awt.Color.WHITE);
+    javax.swing.JScrollBar vBar = jScrollPane1.getVerticalScrollBar();
+    vBar.setPreferredSize(new java.awt.Dimension(8, 8));
+    vBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+        @Override
+        protected void configureScrollBarColors() {
+            this.thumbColor = new Color(120, 120, 120);
+            this.trackColor = new Color(245, 245, 245);
+        }
+        @Override
+        protected javax.swing.JButton createDecreaseButton(int orientation) {
+            return crearBotonInvisible();
+        }
+        @Override
+        protected javax.swing.JButton createIncreaseButton(int orientation) {
+            return crearBotonInvisible();
+        }
+        private javax.swing.JButton crearBotonInvisible() {
+            javax.swing.JButton btn = new javax.swing.JButton();
+            btn.setPreferredSize(new java.awt.Dimension(0, 0));
+            btn.setOpaque(false);
+            btn.setContentAreaFilled(false);
+            btn.setBorderPainted(false);
+            return btn;
+        }
+    });
 }
+
 
 private void personalizarBoton(JButton boton, Color colorNormal, Color colorHover) {
     // 🔹 Color base
@@ -300,12 +372,12 @@ private void configurarBotonSoloTexto(javax.swing.JButton boton) {
 }
 
 
-private void cargarRecopilacionesEnTabla() {
+public void cargarRecopilacionesEnTabla() {
     DefaultTableModel modelo = (DefaultTableModel) tableRecopilaciones.getModel();
     modelo.setRowCount(0);
 
     RecopilacionController controller = new RecopilacionController();
-    List<Recopilacion> lista = controller.listarRecopilaciones(2); // ← tu id real
+    List<Recopilacion> lista = controller.listarRecopilaciones(1); // ← tu id real
 
     for (Recopilacion r : lista) {
         modelo.addRow(new Object[]{
@@ -315,6 +387,7 @@ private void cargarRecopilacionesEnTabla() {
         });
     }
 }
+
 
 
 
