@@ -25,6 +25,125 @@ public class registro extends javax.swing.JFrame {
     public registro() {
         initComponents();
         bordeOriginal = jTextField1.getBorder();
+        
+
+    // Botón transparente con borde invisible
+    jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    jButton3.setContentAreaFilled(false);
+    jButton3.setFocusPainted(false);
+    jButton3.setOpaque(false);
+
+    // Efecto hover (subrayado)
+    jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            jButton3.setBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
+            );
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            jButton3.setBorder(
+                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
+            );
+        }
+    });
+    
+    
+        // Botón transparente con borde invisible
+    jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    jButton4.setContentAreaFilled(false);
+    jButton4.setFocusPainted(false);
+    jButton4.setOpaque(false);
+
+    // Efecto hover (subrayado)
+    jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            jButton4.setBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
+            );
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            jButton4.setBorder(
+                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
+            );
+        }
+    });
+    
+            // Botón transparente con borde invisible
+    jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    jButton5.setContentAreaFilled(false);
+    jButton5.setFocusPainted(false);
+    jButton5.setOpaque(false);
+
+    // Efecto hover (subrayado)
+    jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            jButton5.setBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
+            );
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            jButton5.setBorder(
+                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
+            );
+        }
+    });
+    
+    
+            // Botón transparente con borde invisible
+    jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    jButton6.setContentAreaFilled(false);
+    jButton6.setFocusPainted(false);
+    jButton6.setOpaque(false);
+
+    // Efecto hover (subrayado)
+    jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            jButton6.setBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
+            );
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            jButton6.setBorder(
+                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
+            );
+        }
+    });
+    
+            // Botón transparente con borde invisible
+    jButton7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    jButton7.setContentAreaFilled(false);
+    jButton7.setFocusPainted(false);
+    jButton7.setOpaque(false);
+
+    // Efecto hover (subrayado)
+    jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            jButton7.setBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
+            );
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            jButton7.setBorder(
+                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
+            );
+        }
+    });
+
 
     }
 
@@ -40,11 +159,6 @@ public class registro extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -59,6 +173,11 @@ public class registro extends javax.swing.JFrame {
         jPasswordField2 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -81,31 +200,6 @@ public class registro extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("POLISONG STOCK");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("HOGAR");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("CATALOGO");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("BLOG");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 60, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("CONTACTO");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("COLECCIONES");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8.setText("CUENTA");
@@ -160,6 +254,31 @@ public class registro extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, -1, -1));
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("INICIO");
+        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
+
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("CATALOGO");
+        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
+
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("COLECCIONES");
+        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, -1, -1));
+
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("BLOG");
+        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 60, -1, -1));
+
+        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("CONTACTO");
+        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/registro polisong.jpg"))); // NOI18N
@@ -321,6 +440,11 @@ public class registro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -328,11 +452,6 @@ public class registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
