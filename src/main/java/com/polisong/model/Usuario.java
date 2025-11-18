@@ -28,6 +28,8 @@ public class Usuario {
         this.rol = rol;
         this.fechaRegistro = fechaRegistro;
     }
+    
+ 
 
  
 

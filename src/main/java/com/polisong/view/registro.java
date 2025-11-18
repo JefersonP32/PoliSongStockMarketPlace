@@ -4,6 +4,7 @@
  */
 package com.polisong.view;
 
+import com.polisong.model.gestorUsuarios;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 import java.awt.Color;
@@ -318,12 +319,16 @@ public class registro extends javax.swing.JFrame {
     String contrasena = String.valueOf(jPasswordField1.getPassword()).trim();
     String confirmar = String.valueOf(jPasswordField2.getPassword()).trim();
     
+    
+    
         // Resetear bordes
     jTextField1.setBorder(bordeOriginal);
     jTextField2.setBorder(bordeOriginal);
     jTextField3.setBorder(bordeOriginal);
     jPasswordField1.setBorder(bordeOriginal);
     jPasswordField2.setBorder(bordeOriginal);
+    
+    
     
         // 1. Validar campos vacíos
     if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmar.isEmpty()) {
@@ -389,6 +394,8 @@ public class registro extends javax.swing.JFrame {
         jPasswordField2.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         return;
     }
+    
+    gestorUsuarios.registrarUsuario(nombre, apellido, correo, contrasena);
     
         // 6. Todo correcto → registrar usuario
     JOptionPane.showMessageDialog(this, 

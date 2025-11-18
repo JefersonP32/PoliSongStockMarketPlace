@@ -8,6 +8,9 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+import com.polisong.model.Usuario;
+import com.polisong.model.gestorUsuarios;
+
 
 /**
  *
@@ -302,8 +305,12 @@ public class formularioIngreso extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
          // Obtener datos de los campos
-    String correo = jTextField1.getText().trim();
+    String correo = jTextField1.getText().trim().toLowerCase();
     String contrasena = String.valueOf(jPasswordField1.getPassword()).trim();
+    
+
+
+   
     
         // Resetear bordes antes de comenzar
     jTextField1.setBorder(bordeOriginal);
@@ -360,6 +367,19 @@ public class formularioIngreso extends javax.swing.JFrame {
         jPasswordField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         return;
     }
+    
+        // Buscar usuario
+      Usuario u = gestorUsuarios.buscarUsuario(correo);
+      
+      if (u == null) {
+        JOptionPane.showMessageDialog(this, "El usuario no existe o no está registrado.");
+        return;
+    }
+
+        if (!u.getContrasena().equals(contrasena)) {
+        JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
+        return;
+        }
     
        // 5. Si todo está correcto
     JOptionPane.showMessageDialog(this, 
