@@ -9,8 +9,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.UIDefaults;
@@ -72,12 +74,12 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Nombre");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Descripción");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, -1, -1));
 
         Atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BtnAtras--1.PNG"))); // NOI18N
         Atras.setBorder(null);
@@ -105,7 +107,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
 
         descripcion.setColumns(20);
         descripcion.setRows(5);
-        getContentPane().add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 370, 70));
+        getContentPane().add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 370, 80));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FormReco.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -125,12 +127,33 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
 
     // Validaciones
     if (nom.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
+        ImageIcon raw = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
+        Image imgInfo = raw.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+        ImageIcon icono = new ImageIcon(imgInfo);
+
+JOptionPane.showMessageDialog(
+        this,
+        "El nombre no puede estar vacío.",
+        "Aviso",
+        JOptionPane.PLAIN_MESSAGE,
+        icono
+);
+
         return;
     }
 
     if (desc.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "La descripción no puede estar vacía.");
+        ImageIcon raw = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
+        Image imgInfo = raw.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+        ImageIcon icono = new ImageIcon(imgInfo);
+
+JOptionPane.showMessageDialog(
+        this,
+        "El nombre no puede estar vacío.",
+        "Aviso",
+        JOptionPane.PLAIN_MESSAGE,
+        icono
+);
         return;
     }
 
@@ -144,7 +167,19 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
     );
 
     if (exito) {
-        JOptionPane.showMessageDialog(this, "Recopilación creada correctamente.");
+        
+        ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoExito1.png"));
+        Image imgExito = raw.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon icono = new ImageIcon(imgExito);
+
+JOptionPane.showMessageDialog(
+        this,
+        "Recopilación creada correctamente.",
+        "Éxito",
+        JOptionPane.PLAIN_MESSAGE,
+        icono
+);
+        
 
         // Limpiar campos
         nombre.setText("");
@@ -153,7 +188,17 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         
 
     } else {
-        JOptionPane.showMessageDialog(this, "No se pudo crear la recopilación.");
+        ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoError.png"));
+        Image imgError = raw.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon icono = new ImageIcon(imgError);
+
+JOptionPane.showMessageDialog(
+        this,
+        "Ocurrió un error al crear la recopilación. Por favor, intenta nuevamente",
+        "Error",
+        JOptionPane.PLAIN_MESSAGE,
+        icono
+);
     }
     }//GEN-LAST:event_btnCrearActionPerformed
 

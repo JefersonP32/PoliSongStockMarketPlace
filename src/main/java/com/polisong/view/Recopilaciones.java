@@ -7,11 +7,19 @@ package com.polisong.view;
 import com.polisong.controller.RecopilacionController;
 import com.polisong.model.Recopilacion;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Recopilaciones extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form Recopilaciones
      */
@@ -29,7 +38,7 @@ public class Recopilaciones extends javax.swing.JFrame {
         personalizarTabla();
         configurarBotonSoloTexto(inicio);
     configurarBotonSoloTexto(catalogo);
-    configurarBotonSoloTexto(playlist);
+        configurarBotonPlaylist(playlist);
     configurarBotonSoloTexto(contacto);
         personalizarBoton(jButtonCrear, new Color(100,100,100), new Color(220, 53, 69)); // rojo → gris oscuro
         personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100,100,100)); // gris → gris más oscuro
@@ -46,6 +55,7 @@ public class Recopilaciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableRecopilaciones = new javax.swing.JTable();
         jButtonEliminar = new javax.swing.JButton();
@@ -103,7 +113,7 @@ public class Recopilaciones extends javax.swing.JFrame {
                 jButtonEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 580, 90, 30));
+        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 580, 90, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Disco - 1.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 30, 190, 120));
@@ -122,6 +132,11 @@ public class Recopilaciones extends javax.swing.JFrame {
 
         playlist.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
         playlist.setText("Playlist");
+        playlist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playlistActionPerformed(evt);
+            }
+        });
         getContentPane().add(playlist, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
         catalogo.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
@@ -158,7 +173,18 @@ public class Recopilaciones extends javax.swing.JFrame {
         int fila = tableRecopilaciones.getSelectedRow();
 
     if (fila == -1) {
-        JOptionPane.showMessageDialog(this, "Selecciona una recopilación para eliminar.");
+    ImageIcon image = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
+    Image img = image.getImage().getScaledInstance(90,90, Image.SCALE_SMOOTH);
+    ImageIcon iconoEscalado = new ImageIcon(img);
+
+        JOptionPane.showMessageDialog(
+        this,
+        "Selecciona una recopilación para eliminar.",
+        "Aviso",
+        JOptionPane.PLAIN_MESSAGE,
+        iconoEscalado
+);
+
         return;
     }
 
@@ -168,12 +194,22 @@ public class Recopilaciones extends javax.swing.JFrame {
     );
 
     // Confirmación
-    int opcion = JOptionPane.showConfirmDialog(
+    ImageIcon image = new ImageIcon(getClass().getResource("/images/IconoAdvertencia.png"));
+    Image img = image.getImage().getScaledInstance(90,90, Image.SCALE_SMOOTH);
+    ImageIcon iconoEscalado = new ImageIcon(img);
+
+    int opcion = JOptionPane.showOptionDialog(
         this,
         "¿Estás seguro de eliminar esta recopilación?",
         "Confirmar eliminación",
-        JOptionPane.YES_NO_OPTION
-    );
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE,   // este tiene prioridad
+        iconoEscalado,
+        new Object[]{"Sí", "No"},
+        "Sí"
+);
+
+
 
     if (opcion == JOptionPane.YES_OPTION) {
 
@@ -182,10 +218,31 @@ public class Recopilaciones extends javax.swing.JFrame {
         boolean exito = controller.eliminarRecopilacion(idRecopilacion);
 
         if (exito) {
-            JOptionPane.showMessageDialog(this, "Recopilación eliminada correctamente.");
+            ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoExito1.png"));
+            Image imgExito = raw.getImage().getScaledInstance(100,100, Image.SCALE_SMOOTH);
+            ImageIcon icono = new ImageIcon(imgExito);
+
+JOptionPane.showMessageDialog(
+        this,
+        "Recopilación eliminada correctamente.",
+        "Éxito",
+        JOptionPane.PLAIN_MESSAGE,
+        icono
+);
             cargarRecopilacionesEnTabla();  // recargar tabla
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo eliminar la recopilación.");
+            ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoError.png"));
+            Image imgError = raw.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH);
+            ImageIcon icono = new ImageIcon(imgError);
+
+JOptionPane.showMessageDialog(
+        this,
+        "No se pudo eliminar la recopilación.",
+        "Error",
+        JOptionPane.PLAIN_MESSAGE,
+        icono
+);
+
         }
     }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
@@ -193,6 +250,10 @@ public class Recopilaciones extends javax.swing.JFrame {
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inicioActionPerformed
+
+    private void playlistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playlistActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playlistActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,6 +432,27 @@ private void configurarBotonSoloTexto(javax.swing.JButton boton) {
     });
 }
 
+private void configurarBotonPlaylist(javax.swing.JButton boton) {
+    // Quitar bordes y fondo
+    boton.setBorder(null);
+    boton.setFocusPainted(false);
+    boton.setContentAreaFilled(false);
+    boton.setOpaque(false);
+    boton.setBorderPainted(false);
+
+    // Colores
+    Color colorNormal = Color.WHITE;
+    Color colorHover = new Color(255, 54, 54); // rgba(37, 150, 190)
+
+    boton.setForeground(colorNormal);
+
+    // Guardar texto original
+    String textoOriginal = boton.getText();
+    boton.setForeground(colorHover); // cambia a rgba
+    boton.setText("<html><u>" + textoOriginal + "</u></html>"); // subrayado
+}
+
+
 
 public void cargarRecopilacionesEnTabla() {
     DefaultTableModel modelo = (DefaultTableModel) tableRecopilaciones.getModel();
@@ -394,15 +476,13 @@ public void cargarRecopilacionesEnTabla() {
 
 
 
-
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton catalogo;
     private javax.swing.JButton contacto;
     private javax.swing.JButton inicio;
     private javax.swing.JButton jButtonCrear;
     private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
