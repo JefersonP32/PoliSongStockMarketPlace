@@ -28,23 +28,25 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Recopilaciones extends javax.swing.JFrame {
 
-    
     /**
      * Creates new form Recopilaciones
      */
-    public Recopilaciones() {
+    private int idUsuario;
+
+    public Recopilaciones(int idUsuario) {
+        this.idUsuario = idUsuario;
         initComponents();
         setLocationRelativeTo(null);
         personalizarTabla();
         configurarBotonSoloTexto(inicio);
-    configurarBotonSoloTexto(catalogo);
+        configurarBotonSoloTexto(catalogo);
         configurarBotonPlaylist(playlist);
-    configurarBotonSoloTexto(contacto);
-        personalizarBoton(jButtonCrear, new Color(100,100,100), new Color(220, 53, 69)); // rojo → gris oscuro
-        personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100,100,100)); // gris → gris más oscuro
-        cargarRecopilacionesEnTabla(); 
+        configurarBotonSoloTexto(contacto);
+        personalizarBoton(jButtonCrear, new Color(100, 100, 100), new Color(220, 53, 69)); // rojo → gris oscuro
+        personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100, 100, 100));// gris → gris más oscuro
+        personalizarBoton(BtnEditar, new Color(100, 100, 100), new Color(220, 53, 69));
+        cargarRecopilacionesEnTabla();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,6 +66,7 @@ public class Recopilaciones extends javax.swing.JFrame {
         playlist = new javax.swing.JButton();
         catalogo = new javax.swing.JButton();
         contacto = new javax.swing.JButton();
+        BtnEditar = new javax.swing.JButton();
         inicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -128,7 +131,7 @@ public class Recopilaciones extends javax.swing.JFrame {
                 jButtonCrearActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 120, 40));
+        getContentPane().add(jButtonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 120, 40));
 
         playlist.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
         playlist.setText("Playlist");
@@ -146,6 +149,14 @@ public class Recopilaciones extends javax.swing.JFrame {
         contacto.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
         contacto.setText("Contacto");
         getContentPane().add(contacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
+
+        BtnEditar.setText("Editar");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 90, 40));
 
         inicio.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
         inicio.setText("Inicio");
@@ -165,86 +176,84 @@ public class Recopilaciones extends javax.swing.JFrame {
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
         FormularioRecopilacion form = new FormularioRecopilacion(this, true); // (padre, modal)
-    form.setLocationRelativeTo(this); // centrar
-    form.setVisible(true);
+        form.setLocationRelativeTo(this); // centrar
+        form.setVisible(true);
     }//GEN-LAST:event_jButtonCrearActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int fila = tableRecopilaciones.getSelectedRow();
 
-    if (fila == -1) {
-    ImageIcon image = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
-    Image img = image.getImage().getScaledInstance(90,90, Image.SCALE_SMOOTH);
-    ImageIcon iconoEscalado = new ImageIcon(img);
+        if (fila == -1) {
+            ImageIcon image = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
+            Image img = image.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+            ImageIcon iconoEscalado = new ImageIcon(img);
 
-        JOptionPane.showMessageDialog(
-        this,
-        "Selecciona una recopilación para eliminar.",
-        "Aviso",
-        JOptionPane.PLAIN_MESSAGE,
-        iconoEscalado
-);
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Selecciona una recopilación para eliminar.",
+                    "Aviso",
+                    JOptionPane.PLAIN_MESSAGE,
+                    iconoEscalado
+            );
 
-        return;
-    }
-
-    // Obtener ID desde la columna 0
-    int idRecopilacion = Integer.parseInt(
-        tableRecopilaciones.getValueAt(fila, 0).toString()
-    );
-
-    // Confirmación
-    ImageIcon image = new ImageIcon(getClass().getResource("/images/IconoAdvertencia.png"));
-    Image img = image.getImage().getScaledInstance(90,90, Image.SCALE_SMOOTH);
-    ImageIcon iconoEscalado = new ImageIcon(img);
-
-    int opcion = JOptionPane.showOptionDialog(
-        this,
-        "¿Estás seguro de eliminar esta recopilación?",
-        "Confirmar eliminación",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE,   // este tiene prioridad
-        iconoEscalado,
-        new Object[]{"Sí", "No"},
-        "Sí"
-);
-
-
-
-    if (opcion == JOptionPane.YES_OPTION) {
-
-        RecopilacionController controller = new RecopilacionController();
-
-        boolean exito = controller.eliminarRecopilacion(idRecopilacion);
-
-        if (exito) {
-            ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoExito1.png"));
-            Image imgExito = raw.getImage().getScaledInstance(100,100, Image.SCALE_SMOOTH);
-            ImageIcon icono = new ImageIcon(imgExito);
-
-JOptionPane.showMessageDialog(
-        this,
-        "Recopilación eliminada correctamente.",
-        "Éxito",
-        JOptionPane.PLAIN_MESSAGE,
-        icono
-);
-            cargarRecopilacionesEnTabla();  // recargar tabla
-        } else {
-            ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoError.png"));
-            Image imgError = raw.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH);
-            ImageIcon icono = new ImageIcon(imgError);
-
-JOptionPane.showMessageDialog(
-        this,
-        "No se pudo eliminar la recopilación.",
-        "Error",
-        JOptionPane.PLAIN_MESSAGE,
-        icono
-);
-
+            return;
         }
-    }
+
+        // Obtener ID desde la columna 0
+        int idRecopilacion = Integer.parseInt(
+                tableRecopilaciones.getValueAt(fila, 0).toString()
+        );
+
+        // Confirmación
+        ImageIcon image = new ImageIcon(getClass().getResource("/images/IconoAdvertencia.png"));
+        Image img = image.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado = new ImageIcon(img);
+
+        int opcion = JOptionPane.showOptionDialog(
+                this,
+                "¿Estás seguro de eliminar esta recopilación?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                iconoEscalado,
+                new Object[]{"Sí", "No"},
+                "Sí"
+        );
+
+        if (opcion == JOptionPane.YES_OPTION) {
+
+            RecopilacionController controller = new RecopilacionController();
+
+            boolean exito = controller.eliminarRecopilacion(idRecopilacion);
+
+            if (exito) {
+                ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoExito1.png"));
+                Image imgExito = raw.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                ImageIcon icono = new ImageIcon(imgExito);
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Recopilación eliminada correctamente.",
+                        "Éxito",
+                        JOptionPane.PLAIN_MESSAGE,
+                        icono
+                );
+                cargarRecopilacionesEnTabla();  // recargar tabla
+            } else {
+                ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoError.png"));
+                Image imgError = raw.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH);
+                ImageIcon icono = new ImageIcon(imgError);
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se pudo eliminar la recopilación.",
+                        "Error",
+                        JOptionPane.PLAIN_MESSAGE,
+                        icono
+                );
+
+            }
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
@@ -254,6 +263,36 @@ JOptionPane.showMessageDialog(
     private void playlistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playlistActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_playlistActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+        int fila = tableRecopilaciones.getSelectedRow();
+
+        if (fila == -1) {
+            ImageIcon raw = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
+            Image imgInfo = raw.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+            ImageIcon icono = new ImageIcon(imgInfo);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Selecciona una recopilación para editar.",
+                    "Aviso",
+                    JOptionPane.PLAIN_MESSAGE,
+                    icono
+            );
+            return;
+        }
+
+        // Obtengo los datos de la fila
+        int id = (int) tableRecopilaciones.getValueAt(fila, 0);
+        String nombre = tableRecopilaciones.getValueAt(fila, 1).toString();
+        String descripcion = tableRecopilaciones.getValueAt(fila, 2).toString();
+
+        // Abre JDialog y envías los datos
+        FormularioEditarRecopilacion dialog = new FormularioEditarRecopilacion(this, true);
+        dialog.setDatos(id, nombre, descripcion);
+
+        dialog.setVisible(true);
+    }//GEN-LAST:event_BtnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,198 +324,187 @@ JOptionPane.showMessageDialog(
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Recopilaciones().setVisible(true);
+                new Recopilaciones(1).setVisible(true);
             }
         });
     }
-    
-    
+
     private void personalizarTabla() {
-    System.out.println("personalizarTabla() ejecutado"); // confirmación en consola
 
-    // ===== ESTILO TABLA =====
-    tableRecopilaciones.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-    tableRecopilaciones.setRowHeight(28);
-    tableRecopilaciones.setFillsViewportHeight(true);
+        tableRecopilaciones.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        tableRecopilaciones.setRowHeight(28);
+        tableRecopilaciones.setFillsViewportHeight(true);
 
-    // Quitar todas las líneas (sin divisiones entre columnas)
-    tableRecopilaciones.setShowGrid(false);
-    tableRecopilaciones.setShowHorizontalLines(false);
-    tableRecopilaciones.setShowVerticalLines(false);
-    tableRecopilaciones.setIntercellSpacing(new java.awt.Dimension(0, 0));
-    tableRecopilaciones.setRowMargin(0);
+        // Quitar todas las líneas 
+        tableRecopilaciones.setShowGrid(false);
+        tableRecopilaciones.setShowHorizontalLines(false);
+        tableRecopilaciones.setShowVerticalLines(false);
+        tableRecopilaciones.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tableRecopilaciones.setRowMargin(0);
 
-    // ===== ENCABEZADO: renderer propio gris oscuro y texto a la izquierda =====
-    javax.swing.table.JTableHeader header = tableRecopilaciones.getTableHeader();
-    header.setReorderingAllowed(false);
-    header.setResizingAllowed(false);
-    header.setOpaque(true);
-    header.setBackground(new Color(1, 1, 1)); // gris oscuro
-    header.setForeground(Color.WHITE);
-    header.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-    header.setBorder(BorderFactory.createEmptyBorder());
+        //ENCABEZADO
+        javax.swing.table.JTableHeader header = tableRecopilaciones.getTableHeader();
+        header.setReorderingAllowed(false);
+        header.setResizingAllowed(false);
+        header.setOpaque(true);
+        header.setBackground(new Color(1, 1, 1)); // gris oscuro
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+        header.setBorder(BorderFactory.createEmptyBorder());
 
-    header.setDefaultRenderer((table, value, isSelected, hasFocus, row, column) -> {
-        javax.swing.JLabel lbl = new javax.swing.JLabel(value == null ? "" : value.toString());
-        lbl.setOpaque(true); // importante para que se pinte el background
-        lbl.setBackground(new Color(107,107,107));
-        lbl.setForeground(Color.WHITE);
-        lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-        lbl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT); // o CENTER/RIGHT
-        lbl.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
-        return lbl;
-    });
+        header.setDefaultRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            javax.swing.JLabel lbl = new javax.swing.JLabel(value == null ? "" : value.toString());
+            lbl.setOpaque(true); // importante para que se pinte el background
+            lbl.setBackground(new Color(107, 107, 107));
+            lbl.setForeground(Color.WHITE);
+            lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+            lbl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT); // o CENTER/RIGHT
+            lbl.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
+            return lbl;
+        });
 
-    // ===== CELDAS: padding y renderer neutro =====
-    javax.swing.table.DefaultTableCellRenderer cell = new javax.swing.table.DefaultTableCellRenderer();
-    cell.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
-    cell.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
-    tableRecopilaciones.setDefaultRenderer(Object.class, cell);
+        //CELDAS
+        javax.swing.table.DefaultTableCellRenderer cell = new javax.swing.table.DefaultTableCellRenderer();
+        cell.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
+        cell.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+        tableRecopilaciones.setDefaultRenderer(Object.class, cell);
 
-    // ===== SELECCIÓN SUAVE =====
-    tableRecopilaciones.setSelectionBackground(new Color(69, 68, 68));
-    tableRecopilaciones.setSelectionForeground(Color.BLACK);
+        //SELECCIÓN SUAVE
+        tableRecopilaciones.setSelectionBackground(new Color(69, 68, 68));
+        tableRecopilaciones.setSelectionForeground(Color.BLACK);
 
-    // ===== SCROLL SIMPLE Y DELGADO =====
-    jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
-    jScrollPane1.getViewport().setBackground(Color.WHITE);
+        //SCROLL SIMPLE Y DELGADO
+        jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
+        jScrollPane1.getViewport().setBackground(Color.WHITE);
 
-    javax.swing.JScrollBar vBar = jScrollPane1.getVerticalScrollBar();
-    vBar.setPreferredSize(new java.awt.Dimension(8, 8));
-    vBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
-        @Override
-        protected void configureScrollBarColors() {
-            this.thumbColor = new Color(120, 120, 120);
-            this.trackColor = new Color(245, 245, 245);
-        }
-        @Override
-        protected javax.swing.JButton createDecreaseButton(int orientation) {
-            return crearBotonInvisible();
-        }
-        @Override
-        protected javax.swing.JButton createIncreaseButton(int orientation) {
-            return crearBotonInvisible();
-        }
-        private javax.swing.JButton crearBotonInvisible() {
-            javax.swing.JButton btn = new javax.swing.JButton();
-            btn.setPreferredSize(new java.awt.Dimension(0, 0));
-            btn.setOpaque(false);
-            btn.setContentAreaFilled(false);
-            btn.setBorderPainted(false);
-            return btn;
-        }
-    });
-}
+        javax.swing.JScrollBar vBar = jScrollPane1.getVerticalScrollBar();
+        vBar.setPreferredSize(new java.awt.Dimension(8, 8));
+        vBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(120, 120, 120);
+                this.trackColor = new Color(245, 245, 245);
+            }
 
+            @Override
+            protected javax.swing.JButton createDecreaseButton(int orientation) {
+                return crearBotonInvisible();
+            }
 
-private void personalizarBoton(JButton boton, Color colorNormal, Color colorHover) {
-    // 🔹 Color base
-    boton.setBackground(colorNormal);
-    boton.setForeground(Color.WHITE);
-    boton.setFont(new java.awt.Font("Bahnschrift", java.awt.Font.BOLD, 12));
+            @Override
+            protected javax.swing.JButton createIncreaseButton(int orientation) {
+                return crearBotonInvisible();
+            }
 
-    
-    // 🔹 Forzar fondo sin interferencia de Nimbus
-    boton.setOpaque(true);
-    boton.setContentAreaFilled(true);
-    boton.setBorderPainted(false);
-    boton.setFocusPainted(false);
-    boton.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
-    
-    // 🔹 Quitar el enfoque azul de Nimbus
-    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-    
-    // 🔹 Efecto hover (cambio de color)
-    boton.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            boton.setBackground(colorHover);
-        }
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            boton.setBackground(colorNormal);
-        }
-    });
-}
-
-private void configurarBotonSoloTexto(javax.swing.JButton boton) {
-    // Quitar bordes y fondo
-    boton.setBorder(null);
-    boton.setFocusPainted(false);
-    boton.setContentAreaFilled(false);
-    boton.setOpaque(false);
-    boton.setBorderPainted(false);
-
-    // Colores
-    Color colorNormal = Color.WHITE;
-    Color colorHover = new Color(255, 54, 54); // rgba(37, 150, 190)
-
-    boton.setForeground(colorNormal);
-
-    // Guardar texto original
-    String textoOriginal = boton.getText();
-
-    // Eventos del mouse
-    boton.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent e) {
-            boton.setForeground(colorHover); // cambia a rgba
-            boton.setText("<html><u>" + textoOriginal + "</u></html>"); // subrayado
-        }
-
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent e) {
-            boton.setForeground(colorNormal); // vuelve a blanco
-            boton.setText(textoOriginal); // sin subrayado
-        }
-    });
-}
-
-private void configurarBotonPlaylist(javax.swing.JButton boton) {
-    // Quitar bordes y fondo
-    boton.setBorder(null);
-    boton.setFocusPainted(false);
-    boton.setContentAreaFilled(false);
-    boton.setOpaque(false);
-    boton.setBorderPainted(false);
-
-    // Colores
-    Color colorNormal = Color.WHITE;
-    Color colorHover = new Color(255, 54, 54); // rgba(37, 150, 190)
-
-    boton.setForeground(colorNormal);
-
-    // Guardar texto original
-    String textoOriginal = boton.getText();
-    boton.setForeground(colorHover); // cambia a rgba
-    boton.setText("<html><u>" + textoOriginal + "</u></html>"); // subrayado
-}
-
-
-
-public void cargarRecopilacionesEnTabla() {
-    DefaultTableModel modelo = (DefaultTableModel) tableRecopilaciones.getModel();
-    modelo.setRowCount(0);
-
-    RecopilacionController controller = new RecopilacionController();
-    List<Recopilacion> lista = controller.listarRecopilaciones(1); // ← tu id real
-
-    for (Recopilacion r : lista) {
-        modelo.addRow(new Object[]{
-            r.getIdRecopilacion(),
-            r.getNombre(),
-            r.getDescripcion()
+            private javax.swing.JButton crearBotonInvisible() {
+                javax.swing.JButton btn = new javax.swing.JButton();
+                btn.setPreferredSize(new java.awt.Dimension(0, 0));
+                btn.setOpaque(false);
+                btn.setContentAreaFilled(false);
+                btn.setBorderPainted(false);
+                return btn;
+            }
         });
     }
-}
 
+    private void personalizarBoton(JButton boton, Color colorNormal, Color colorHover) {
+        // Color base
+        boton.setBackground(colorNormal);
+        boton.setForeground(Color.WHITE);
+        boton.setFont(new java.awt.Font("Bahnschrift", java.awt.Font.BOLD, 12));
 
+        boton.setOpaque(true);
+        boton.setContentAreaFilled(true);
+        boton.setBorderPainted(false);
+        boton.setFocusPainted(false);
+        boton.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
 
+        boton.setUI(new javax.swing.plaf.basic.BasicButtonUI());
 
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(colorHover);
+            }
 
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(colorNormal);
+            }
+        });
+    }
+
+    private void configurarBotonSoloTexto(javax.swing.JButton boton) {
+        // Quitar bordes y fondo
+        boton.setBorder(null);
+        boton.setFocusPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setOpaque(false);
+        boton.setBorderPainted(false);
+
+        Color colorNormal = Color.WHITE;
+        Color colorHover = new Color(255, 54, 54);
+
+        boton.setForeground(colorNormal);
+
+        // Guardar texto original
+        String textoOriginal = boton.getText();
+
+        // Eventos del mouse
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                boton.setForeground(colorHover); // cambia a rgba
+                boton.setText("<html><u>" + textoOriginal + "</u></html>"); // subrayado
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                boton.setForeground(colorNormal); // vuelve a blanco
+                boton.setText(textoOriginal); // sin subrayado
+            }
+        });
+    }
+
+    private void configurarBotonPlaylist(javax.swing.JButton boton) {
+        // Quitar bordes y fondo
+        boton.setBorder(null);
+        boton.setFocusPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setOpaque(false);
+        boton.setBorderPainted(false);
+
+        // Colores
+        Color colorNormal = Color.WHITE;
+        Color colorHover = new Color(255, 54, 54);
+
+        boton.setForeground(colorNormal);
+
+        // Guardar texto original
+        String textoOriginal = boton.getText();
+        boton.setForeground(colorHover);
+        boton.setText("<html><u>" + textoOriginal + "</u></html>"); // subrayado
+    }
+
+    public void cargarRecopilacionesEnTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tableRecopilaciones.getModel();
+        modelo.setRowCount(0);
+
+        RecopilacionController controller = new RecopilacionController();
+        List<Recopilacion> lista = controller.listarRecopilaciones(idUsuario);
+
+        for (Recopilacion r : lista) {
+            modelo.addRow(new Object[]{
+                r.getIdRecopilacion(),
+                r.getNombre(),
+                r.getDescripcion()
+            });
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnEditar;
     private javax.swing.JButton catalogo;
     private javax.swing.JButton contacto;
     private javax.swing.JButton inicio;

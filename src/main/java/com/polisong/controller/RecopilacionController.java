@@ -81,6 +81,42 @@ public List<Recopilacion> listarRecopilaciones(int idUsuario) {
     return dao.listarRecopilacionesPorUsuario(idUsuario);
 }
 
+
+
+// Editar recopilación
+public boolean editarRecopilacion(int idRecopilacion, String nombre, String descripcion, boolean esPublica) {
+
+    if (idRecopilacion <= 0) {
+        System.err.println("ID de recopilación inválido.");
+        return false;
+    }
+
+    if (nombre == null || nombre.isBlank()) {
+        System.err.println("El nombre no puede estar vacío.");
+        return false;
+    }
+
+    if (descripcion == null || descripcion.isBlank()) {
+        System.err.println("La descripción no puede estar vacía.");
+        return false;
+    }
+
+    // Crear objeto con los datos actualizados
+    Recopilacion recop = new Recopilacion(nombre, descripcion, 0, esPublica);
+    recop.setIdRecopilacion(idRecopilacion);
+
+    boolean exito = dao.editarRecopilacion(recop);
+
+    if (exito) {
+        System.out.println("Recopilación actualizada correctamente.");
+    } else {
+        System.out.println("No se pudo actualizar la recopilación.");
+    }
+
+    return exito;
+}
+
+
     
     public boolean eliminarRecopilacion(int idRecopilacion) {
         if (idRecopilacion <= 0) {

@@ -6,7 +6,6 @@ package com.polisong.view;
 
 import com.polisong.controller.RecopilacionController;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -15,21 +14,20 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.UIDefaults;
 import javax.swing.border.LineBorder;
 
 /**
  *
  * @author Jeferson
  */
-public class FormularioRecopilacion extends javax.swing.JDialog {
+public class FormularioEditarRecopilacion extends javax.swing.JDialog {
+
+    private final Recopilaciones ventanaPadre;
 
     /**
-     * Creates new form FormularioRecopilacion
+     * Creates new form FormularioEditarRecopilacion
      */
-    private Recopilaciones ventanaPadre;
-
-    public FormularioRecopilacion(java.awt.Frame parent, boolean modal) {
+    public FormularioEditarRecopilacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         estilizarCampo(nombre);
@@ -37,6 +35,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         personalizarBoton();
         getRootPane().setBorder(new LineBorder(Color.DARK_GRAY, 3, true));
         this.ventanaPadre = (Recopilaciones) parent;
+        setLocationRelativeTo(parent);
 
     }
 
@@ -50,12 +49,11 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
     private void initComponents() {
 
         nombre = new javax.swing.JTextField();
+        BtnEditar = new javax.swing.JButton();
+        descripcion = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Atras = new javax.swing.JButton();
-        btnCrear = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        descripcion = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -68,6 +66,19 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
             }
         });
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 370, 38));
+
+        BtnEditar.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
+        BtnEditar.setText("Guardar");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, 100, 30));
+
+        descripcion.setColumns(20);
+        descripcion.setRows(5);
+        getContentPane().add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 370, 80));
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
@@ -88,43 +99,40 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
                 AtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 40, 40));
+        getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 40, 40));
 
-        btnCrear.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
-        btnCrear.setText("Crear");
-        btnCrear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, 90, 30));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Disco.PNG"))); // NOI18N
-        jLabel4.setText("jLabel4");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, -30, 130, 90));
-
-        descripcion.setColumns(20);
-        descripcion.setRows(5);
-        getContentPane().add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 370, 80));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FormReco.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FormRecoEdit.png"))); // NOI18N
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 985, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 983, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private int idRecopilacion; // guardamos el ID
+
+    public void setDatos(int id, String nombres, String descrip) {
+        this.idRecopilacion = id;
+        nombre.setText(nombres);
+        descripcion.setText(descrip);
+    }
+
+
+    private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
+
+        this.dispose();  // cierra la pantalla actual        // TODO add your handling code here:
+    }//GEN-LAST:event_AtrasActionPerformed
 
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreActionPerformed
 
-    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        String nom = nombre.getText().trim();
-        String desc = descripcion.getText().trim();
-        boolean esPublica = false; // siempre privada por ahora
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+        String nombres = nombre.getText().trim();
+        String descrip = descripcion.getText().trim();
+        boolean esPublica = false;
 
         //Validaciones
-        if (nom.isEmpty()) {
+        if (nombres.isBlank()) {
             ImageIcon raw = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
             Image imgInfo = raw.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
             ImageIcon icono = new ImageIcon(imgInfo);
@@ -139,7 +147,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
             return;
         }
 
-        if (nom.length() > 100) {
+        if (nombres.length() > 100) {
             ImageIcon raw = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
             Image imgInfo = raw.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
             ImageIcon icono = new ImageIcon(imgInfo);
@@ -154,7 +162,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
             return;
         }
 
-        if (desc.isEmpty()) {
+        if (descrip.isBlank()) {
             ImageIcon raw = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
             Image imgInfo = raw.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
             ImageIcon icono = new ImageIcon(imgInfo);
@@ -169,7 +177,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
             return;
         }
 
-        if (desc.length() > 255) {
+        if (descrip.length() > 255) {
             ImageIcon raw = new ImageIcon(getClass().getResource("/images/Icono1Info.png"));
             Image imgInfo = raw.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
             ImageIcon icono = new ImageIcon(imgInfo);
@@ -186,14 +194,14 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
 
         RecopilacionController controller = new RecopilacionController();
 
-        boolean exito = controller.crearRecopilacion(
-                nom,
-                desc,
-                1,
+        boolean actualizado = controller.editarRecopilacion(
+                idRecopilacion,
+                nombres,
+                descrip,
                 esPublica
         );
 
-        if (exito) {
+        if (actualizado) {
 
             ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoExito1.png"));
             Image imgExito = raw.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -201,36 +209,33 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Recopilación creada correctamente.",
+                    "Recopilación editada con éxito.",
                     "Éxito",
                     JOptionPane.PLAIN_MESSAGE,
                     icono
             );
 
-            // Limpiar campos
             nombre.setText("");
             descripcion.setText("");
+
             ventanaPadre.cargarRecopilacionesEnTabla();
+            dispose();
 
         } else {
+
             ImageIcon raw = new ImageIcon(getClass().getResource("/images/IconoError.png"));
             Image imgError = raw.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             ImageIcon icono = new ImageIcon(imgError);
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Ocurrió un error al crear la recopilación. Por favor, intenta nuevamente",
+                    "No se pudo editar la recopilación.",
                     "Error",
                     JOptionPane.PLAIN_MESSAGE,
                     icono
             );
         }
-    }//GEN-LAST:event_btnCrearActionPerformed
-
-    private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
-
-        this.dispose();  // cierra la pantalla actual 
-    }//GEN-LAST:event_AtrasActionPerformed
+    }//GEN-LAST:event_BtnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,20 +254,20 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioRecopilacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioEditarRecopilacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioRecopilacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioEditarRecopilacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioRecopilacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioEditarRecopilacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioRecopilacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioEditarRecopilacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FormularioRecopilacion dialog = new FormularioRecopilacion(new javax.swing.JFrame(), true);
+                FormularioEditarRecopilacion dialog = new FormularioEditarRecopilacion(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -281,7 +286,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
 
         campo.setBorder(javax.swing.BorderFactory.createCompoundBorder(
                 javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200), 1),
-                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)
+                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10) // padding interno
         ));
 
         campo.setCaretColor(new java.awt.Color(60, 60, 60));
@@ -321,23 +326,23 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         Color colorNormal = new Color(46, 204, 113);
         Color colorHover = new Color(39, 174, 96);
 
-        btnCrear.setBackground(colorNormal);
-        btnCrear.setForeground(Color.WHITE);
-        btnCrear.setFont(new java.awt.Font("Bahnschrift", java.awt.Font.BOLD, 14));
-        btnCrear.setOpaque(false); // importante para redondeado
-        btnCrear.setContentAreaFilled(false);
-        btnCrear.setBorderPainted(false);
-        btnCrear.setFocusPainted(false);
-        btnCrear.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
+        BtnEditar.setBackground(colorNormal);
+        BtnEditar.setForeground(Color.WHITE);
+        BtnEditar.setFont(new java.awt.Font("Bahnschrift", java.awt.Font.BOLD, 14));
+        BtnEditar.setOpaque(false);
+        BtnEditar.setContentAreaFilled(false);
+        BtnEditar.setBorderPainted(false);
+        BtnEditar.setFocusPainted(false);
+        BtnEditar.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
 
-        btnCrear.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+        BtnEditar.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
             @Override
             public void paint(Graphics g, JComponent c) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                 // Fondo redondeado
-                g2.setColor(btnCrear.getBackground());
+                g2.setColor(BtnEditar.getBackground());
                 g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
 
                 g2.dispose();
@@ -345,17 +350,17 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
             }
         });
 
-        btnCrear.addMouseListener(new java.awt.event.MouseAdapter() {
+        BtnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCrear.setBackground(colorHover);
-                btnCrear.repaint();
+                BtnEditar.setBackground(colorHover);
+                BtnEditar.repaint();
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCrear.setBackground(colorNormal);
-                btnCrear.repaint();
+                BtnEditar.setBackground(colorNormal);
+                BtnEditar.repaint();
             }
         });
     }
@@ -363,12 +368,11 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Atras;
-    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton BtnEditar;
     private javax.swing.JTextArea descripcion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

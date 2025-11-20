@@ -58,6 +58,33 @@ public class RecopilacionDAO {
         return lista;
     }
     
+    public boolean editarRecopilacion(Recopilacion recop) {
+    String sql = "UPDATE Recopilacion SET nombre = ?, Descripcion = ?, es_publica = ? WHERE id_recopilacion = ?";
+
+    try (Connection conn = Conexion.getConexion();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, recop.getNombre());
+        ps.setString(2, recop.getDescripcion());
+        ps.setInt(3, recop.isEsPublica() ? 1 : 0);
+        ps.setInt(4, recop.getIdRecopilacion()); // ID de la recopilación a modificar
+
+        int filas = ps.executeUpdate();
+        return filas > 0;
+
+    } catch (SQLException e) {
+        System.err.println("Error al editar la recopilación: " + e.getMessage());
+        return false;
+    }
+}
+
+    
+    
+    
+    
+    
+    
+    
     public boolean eliminarRecopilacion(int idRecopilacion) {
         String sql = "DELETE FROM Recopilacion WHERE id_recopilacion = ?";
 
