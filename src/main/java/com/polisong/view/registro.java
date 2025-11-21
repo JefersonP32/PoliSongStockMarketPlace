@@ -412,16 +412,16 @@ public class registro extends javax.swing.JFrame {
     
         // ---- INTEGRACIÓN CON BASE DE DATOS ----
     UsuarioController controller = new UsuarioController();
-        String rol = jComboBox1.getSelectedItem().toString();
+    String rol = jComboBox1.getSelectedItem().toString();
     boolean registrado = controller.registrarUsuario(nombre, apellido, correo, contrasena, rol);
 
-    /*if (!registrado) {
-        JOptionPane.showMessageDialog(this,
-            "No se pudo registrar el usuario. Revise los datos.",
-            "Error",
-            JOptionPane.ERROR_MESSAGE);
-        return;
-    }*/
+    if (!registrado) {
+    JOptionPane.showMessageDialog(this,
+        "No se pudo registrar el usuario. El correo posiblemente ya está registrado .",
+        "Error",
+        JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
     // Registro exitoso
     JOptionPane.showMessageDialog(this, 
@@ -429,14 +429,9 @@ public class registro extends javax.swing.JFrame {
         "Registro exitoso", 
         JOptionPane.INFORMATION_MESSAGE);
     
-    //gestorUsuarios.registrarUsuario(nombre, apellido, correo, contrasena);
-    
-        // 6. Todo correcto → registrar usuario
-    JOptionPane.showMessageDialog(this, 
-        "Cuenta creada correctamente.", 
-        "Registro exitoso", 
-        JOptionPane.INFORMATION_MESSAGE);
-    
+    //gestorUsuarios.registrarUsuario(nombre, apellido, correo, contrasena, rol);
+   
+   
         // 7. Redirigir al frame de inicio de sesión
     formularioIngreso login = new formularioIngreso();  
     login.setVisible(true);

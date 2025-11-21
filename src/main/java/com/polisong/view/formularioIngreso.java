@@ -28,6 +28,10 @@ public class formularioIngreso extends javax.swing.JFrame {
      */
     public formularioIngreso() {
         initComponents();
+                pack();
+        setSize(1199, 650);
+        setLocationRelativeTo(null);
+        
         bordeOriginal = jTextField1.getBorder(); // guardamos el borde original del campo de correo
         
          // Botón transparente con borde invisible
@@ -377,12 +381,22 @@ public class formularioIngreso extends javax.swing.JFrame {
 
     if (u == null) {
         JOptionPane.showMessageDialog(this,
-            "Usuario o contraseña incorrectos.",
+            "El usuario no está registrado.",
             "Error",
             JOptionPane.ERROR_MESSAGE);
 
         return;
     }
+    
+    if (u.getNombre() == null) {
+    // Usuario existe pero contraseña mal
+    JOptionPane.showMessageDialog(this,
+        "Contraseña incorrecta.",
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+    );
+    return;
+}
 /*
     // LOGIN EXITOSO
     JOptionPane.showMessageDialog(this,
@@ -394,18 +408,21 @@ public class formularioIngreso extends javax.swing.JFrame {
     
     
         // Buscar usuario
-      /*Usuario u = gestorUsuarios.buscarUsuario(correo);
+      //Usuario u = gestorUsuarios.buscarUsuario(correo);
       
+     /* 
       if (u == null) {
         JOptionPane.showMessageDialog(this, "El usuario no existe o no está registrado.");
         return;
-    }
+    }*/
 
         if (!u.getContrasena().equals(contrasena)) {
         JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
         return;
-        }*/
+        }
+        
     gestorUsuarios.usuarioActual = u;
+    
        // 5. Si todo está correcto
     JOptionPane.showMessageDialog(this, 
         "Inicio de sesión exitoso.", 

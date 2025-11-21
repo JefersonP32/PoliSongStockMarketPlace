@@ -4,6 +4,7 @@
  */
 package com.polisong.view;
 
+import com.polisong.controller.UsuarioController;
 import com.polisong.model.Usuario;
 import com.polisong.model.gestorUsuarios;
 import javax.swing.JOptionPane;
@@ -40,6 +41,11 @@ public class cuenta extends javax.swing.JFrame {
     
     public cuenta(Usuario usuario) {
     initComponents();
+    
+    jButton2.setOpaque(false);
+    jButton2.setContentAreaFilled(false);
+    jButton2.setBorderPainted(false);
+    jButton2.setFocusPainted(false);
     setLocationRelativeTo(null);
 
     jLabel4.setText(usuario.getNombre() + " " + usuario.getApellido());
@@ -80,6 +86,7 @@ public class cuenta extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -158,6 +165,14 @@ public class cuenta extends javax.swing.JFrame {
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, -1, -1));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 420, 30));
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BtnAtras--1.PNG"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/frCuenta.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 420));
 
@@ -185,12 +200,19 @@ public class cuenta extends javax.swing.JFrame {
         );
                 if (opcion == JOptionPane.OK_OPTION) {
 
-      
-        //gestorUsuarios.eliminarUsuario(gestorUsuarios.usuarioActual.getCorreo());
+            if (gestorUsuarios.usuarioActual == null) {
+            JOptionPane.showMessageDialog(this,
+                "No hay usuario activo.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+                Usuario usuario = gestorUsuarios.usuarioActual;
 
-
-      
-        gestorUsuarios.usuarioActual = null;
+        UsuarioController controller = new UsuarioController();
+        boolean eliminado = controller.eliminarUsuario(usuario.getIdUsuario());
+        
+        //gestorUsuarios.usuarioActual = null;
 
         
         JOptionPane.showMessageDialog(this, "Tu cuenta ha sido eliminada.");
@@ -202,6 +224,12 @@ public class cuenta extends javax.swing.JFrame {
     }
             
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        pantallaInicio pl = new pantallaInicio();
+        pl.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /*
     public static void main(String args[]) {
@@ -215,6 +243,7 @@ public class cuenta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

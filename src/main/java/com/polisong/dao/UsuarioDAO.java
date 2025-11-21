@@ -81,31 +81,62 @@ public class UsuarioDAO {
       
          
       public Usuario autenticarUsuario(String correo, String contrasena) {
-        String sql = "SELECT * FROM usuario WHERE correo = ? AND contrasena = ?";
+        String sqlCorreo = "SELECT * FROM usuario WHERE correo = ?";
+        String sqlLogin = "SELECT * FROM usuario WHERE correo = ? AND contrasena = ?";
 
         try (Connection conn = DriverManager.getConnection(URL);
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
+                
+            PreparedStatement ps = conn.prepareStatement(sqlCorreo)) {
             ps.setString(1, correo);
-            ps.setString(2, contrasena);
-
             ResultSet rs = ps.executeQuery();
+                    if (!rs.next()) {
+            // El correo NO existe
+            return null;
+        }
+            PreparedStatement ps2 = conn.prepareStatement(sqlLogin);
+            ps2.setString(1, correo);
+            ps2.setString(2, contrasena);
+            ResultSet rs2 = ps2.executeQuery();
+                    
+                    
 
-            if (rs.next()) {
+            if (rs2.next()) {
                 Usuario u = new Usuario();
-                u.setIdUsuario(rs.getInt("id_usuario"));
-                u.setNombre(rs.getString("nombre"));
-                u.setApellido(rs.getString("apellido"));
-                u.setCorreo(rs.getString("correo"));
-                u.setContrasena(rs.getString("contrasena"));
-                u.setRol(rs.getString("rol"));
+                u.setIdUsuario(rs2.getInt("id_usuario"));
+                u.setNombre(rs2.getString("nombre"));
+                u.setApellido(rs2.getString("apellido"));
+                u.setCorreo(rs2.getString("correo"));
+                u.setContrasena(rs2.getString("contrasena"));
+                u.setRol(rs2.getString("rol"));
                 return u;
-            }
+            }else {
+            // El correo existe pero la contraseña es incorrecta
+            Usuario incorrecto = new Usuario();
+            incorrecto.setCorreo("existe"); // Indicador
+            return incorrecto;
+        }
 
         } catch (Exception e) {
             System.out.println("Error al autenticar usuario: " + e.getMessage());
         }
         return null; // Si no se encontró o credenciales incorrectas
     }
+      
+      public boolean existeCorreo(String correo) {
+    String sql = "SELECT 1 FROM usuario WHERE correo = ?";
+    
+    try (Connection conn = DriverManager.getConnection(URL);
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, correo);
+        ResultSet rs = ps.executeQuery();
+
+        return rs.next(); // true = sí existe
+
+    } catch (SQLException e) {
+        System.out.println("Error al verificar correo: " + e.getMessage());
+        return false;
+    }
+}
  
 }

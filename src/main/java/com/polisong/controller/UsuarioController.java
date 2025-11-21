@@ -6,6 +6,7 @@ import com.polisong.dao.UsuarioDAO;
 import com.polisong.model.Usuario;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 public class UsuarioController {
     
@@ -32,10 +33,16 @@ public class UsuarioController {
         }
 
         
-        if (contrasena.length() < 6) {
+       /* if (contrasena.length() < 6) {
             System.out.println(" Error: la contraseña debe tener al menos 6 caracteres.");
             return false;
         }
+*/
+        
+            if (usuarioDAO.existeCorreo(correo)) {
+        JOptionPane.showMessageDialog(null, "El usuario ya está registrado");
+        return false;
+    }
 
        
         //  Crear objeto Usuario
