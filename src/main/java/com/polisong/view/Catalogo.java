@@ -1,22 +1,87 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.polisong.view;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author andre
  */
+
 public class Catalogo extends javax.swing.JFrame {
+     private JPanel panelHeader;
+    private JLabel titulo;
+    private JPanel panelBuscador;
+    private JTextField txtBuscar;
+    private JButton btnBuscar;
+    private JComboBox<String> comboGenero;
+    private JScrollPane scrollCatalogo;
+    private JPanel panelCatalogo;
 
     /**
      * Creates new form Catalogo
      */
     public Catalogo() {
         initComponents();
-       
+        construirCatalogo();
     }
+    private void construirCatalogo() {
+
+    // ---- CONFIG PANEL BASE ----
+    jPanelBase.setLayout(new BorderLayout());
+
+    // ------------------ HEADER ------------------
+    panelHeader = new JPanel();
+    panelHeader.setBackground(new Color(51, 51, 51));
+    panelHeader.setPreferredSize(new Dimension(900, 70));
+
+    titulo = new JLabel("POLISONG STOCK");
+    titulo.setFont(new Font("Arial Black", Font.BOLD, 26));
+    titulo.setForeground(Color.WHITE);
+    panelHeader.add(titulo);
+
+    jPanelBase.add(panelHeader, BorderLayout.NORTH);
+
+    // ------------------ BUSCADOR ------------------
+    panelBuscador = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
+    panelBuscador.setBackground(Color.WHITE);
+
+    panelBuscador.add(new JLabel("Buscar canción:"));
+
+    txtBuscar = new JTextField(25);
+    panelBuscador.add(txtBuscar);
+
+    btnBuscar = new JButton("Buscar");
+    btnBuscar.setBackground(new Color(225, 6, 0));
+    btnBuscar.setForeground(Color.WHITE);
+    panelBuscador.add(btnBuscar);
+
+    panelBuscador.add(new JLabel("Género:"));
+
+    comboGenero = new JComboBox<>(new String[]{
+        "Todos", "Rock", "Pop", "Jazz", "Salsa", "Reggaeton", "Vallenato"
+    });
+    panelBuscador.add(comboGenero);
+
+    jPanelBase.add(panelBuscador, BorderLayout.CENTER);
+
+    // ------------------ CATALOGO ------------------
+    panelCatalogo = new JPanel();
+    panelCatalogo.setLayout(new GridLayout(0, 3, 15, 15));
+    panelCatalogo.setBackground(Color.WHITE);
+    panelCatalogo.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+    for (int i = 1; i <= 6; i++) {
+        panelCatalogo.add(crearCardCancion("Canción " + i, "Artista " + i));
+    }
+
+    scrollCatalogo = new JScrollPane(panelCatalogo);
+    scrollCatalogo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+    jPanelBase.add(scrollCatalogo, BorderLayout.SOUTH);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,22 +92,58 @@ public class Catalogo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelBase = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanelBase.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+private JPanel crearCardCancion(String nombre, String artista) {
+        JPanel card = new JPanel();
+        card.setLayout(new BorderLayout());
+        card.setBackground(Color.WHITE);
+        card.setPreferredSize(new Dimension(200, 250));
+        card.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+
+        JLabel lblTitulo = new JLabel(nombre, SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+
+        JLabel lblArtista = new JLabel(artista, SwingConstants.CENTER);
+        lblArtista.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        JPanel info = new JPanel(new GridLayout(2, 1));
+        info.add(lblTitulo);
+        info.add(lblArtista);
+
+        JButton verBtn = new JButton("Ver detalle");
+        verBtn.setBackground(new Color(225, 6, 0));
+        verBtn.setForeground(Color.WHITE);
+
+        card.add(info, BorderLayout.CENTER);
+        card.add(verBtn, BorderLayout.SOUTH);
+
+        return card;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -74,11 +175,11 @@ public class Catalogo extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Catalogo().setVisible(true);
-                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanelBase;
     // End of variables declaration//GEN-END:variables
 }
