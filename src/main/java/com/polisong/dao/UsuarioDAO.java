@@ -64,7 +64,6 @@ public class UsuarioDAO {
                 Usuario u = new Usuario();
                 u.setIdUsuario(rs.getInt("id_usuario"));
                 u.setNombre(rs.getString("nombre"));
-                u.setApellido(rs.getString("apellido")); 
                 u.setCorreo(rs.getString("correo"));
                 u.setContrasena(rs.getString("contrasena"));
                 u.setRol(rs.getString("rol"));
@@ -95,7 +94,6 @@ public class UsuarioDAO {
                 Usuario u = new Usuario();
                 u.setIdUsuario(rs.getInt("id_usuario"));
                 u.setNombre(rs.getString("nombre"));
-                u.setApellido(rs.getString("apellido")); 
                 u.setCorreo(rs.getString("correo"));
                 u.setContrasena(rs.getString("contrasena"));
                 u.setRol(rs.getString("rol"));

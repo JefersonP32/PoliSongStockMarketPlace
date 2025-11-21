@@ -96,33 +96,26 @@ public class UsuarioController {
         }
     }
     
-    public Usuario obtenerUsuarioPorId(int idUsuario) {
-    if (idUsuario <= 0) {
-        return null;
-    }
-
-    UsuarioDAO dao = new UsuarioDAO();
-    return dao.consultarUsuarioPorId(idUsuario);
-}
     
-    
-    public Usuario autenticarUsuario(String correo, String contrasena) {
+    public String autenticarUsuario(String correo, String contrasena) {
         UsuarioDAO dao = new UsuarioDAO();
 
-    if (correo == null || correo.trim().isEmpty()) {
-        System.out.println("Error: el correo no puede estar vacío.");
-        return null;
-    }
+       
+        if (correo == null || correo.trim().isEmpty()) {
+            return "Error: el correo no puede estar vacio.";
+        }
 
-    if (contrasena == null || contrasena.trim().isEmpty()) {
-        System.out.println("Error: la contraseña no puede estar vacía.");
-        return null;
-    }
+        if (contrasena == null || contrasena.trim().isEmpty()) {
+            return "Error: la contraseña no puede estar vacía.";
+        }
 
-    // Llama al DAO
-    Usuario usuario = dao.autenticarUsuario(correo, contrasena);
+        Usuario usuario = dao.autenticarUsuario(correo, contrasena);
 
-    // Retorna el usuario autenticado o null
-    return usuario;
+        if (usuario != null) {
+            return "Autenticacion exitosa. Bienvenido, " + usuario.getNombre() +
+                   " (" + usuario.getRol() + ")";
+        } else {
+            return " Credenciales incorrectas. Verifica el correo y la contraseña.";
+        }
     }
 }

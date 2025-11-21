@@ -372,13 +372,14 @@ public class formularioIngreso extends javax.swing.JFrame {
     
             // ---- AQUI SE INTEGRA CON LA BASE DE DATOS ----
     UsuarioController controller = new UsuarioController();
-    Usuario usuario = controller.autenticarUsuario(correo, contrasena);
+    String u = controller.autenticarUsuario(correo, contrasena);
 
-    if (usuario == null) {
+    if (u == null) {
         JOptionPane.showMessageDialog(this,
-        "Usuario o contraseña incorrectos.",
-        "Error",
-        JOptionPane.ERROR_MESSAGE);
+            "Usuario o contraseña incorrectos.",
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+
         return;
     }
 /*
@@ -411,7 +412,7 @@ public class formularioIngreso extends javax.swing.JFrame {
         JOptionPane.INFORMATION_MESSAGE);
     
             // 6. Redirigir al frame de inicio de sesión
-    pantallaInicio login = new pantallaInicio(usuario);  
+    pantallaInicio login = new pantallaInicio();  
     login.setVisible(true);
     this.dispose();
 

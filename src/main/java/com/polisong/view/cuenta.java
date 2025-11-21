@@ -34,22 +34,8 @@ public class cuenta extends javax.swing.JFrame {
     jLabel10.setText(u.getApellido());
     jLabel11.setText(u.getCorreo());
     jLabel12.setText(u.getContrasena());
-    jLabel16.setText(u.getRol());
        
     }
-    
-    public cuenta(Usuario usuario) {
-    initComponents();
-    
-    // Aquí llenas los labels con la información del usuario
-    jLabel4.setText(usuario.getNombre() + " " + usuario.getApellido());
-    
-    jLabel9.setText(usuario.getNombre());
-    jLabel10.setText(usuario.getApellido());
-    jLabel11.setText(usuario.getCorreo());
-    jLabel12.setText(usuario.getContrasena());
-    jLabel16.setText(usuario.getRol());
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,9 +64,6 @@ public class cuenta extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jLabel14 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,42 +85,42 @@ public class cuenta extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Nombre: ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Apellido:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Correo: ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Contraseña: ");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel9.setText("jLabel9");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel10.setText("jLabel10");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel11.setText("jLabel11");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 230, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel12.setText("jLabel12");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("Informacion de la cuenta");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 420, 10));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 420, 10));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 420, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 207, 420, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 420, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 420, 10));
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vinyl.png"))); // NOI18N
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 250, -1, -1));
@@ -151,22 +134,14 @@ public class cuenta extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel15.setText("Rol");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, -1, -1));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 420, 20));
-
-        jLabel16.setText("jLabel16");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, -1, -1));
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/frCuenta.jpg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1000, 420));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 420));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,8 +224,6 @@ public class cuenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -263,6 +236,5 @@ public class cuenta extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     // End of variables declaration//GEN-END:variables
 }
