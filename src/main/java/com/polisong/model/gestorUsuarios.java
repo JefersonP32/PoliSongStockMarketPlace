@@ -6,6 +6,9 @@ import java.util.HashMap;
 public class gestorUsuarios {
     private static HashMap<String, Usuario> usuarios = new HashMap<>();
     
+    
+    public static Usuario usuarioActual;
+    
     public static void registrarUsuario(String nombre, String apellido, String correo, String contrasena) {
 
     String rol = "cliente";
@@ -19,4 +22,8 @@ public class gestorUsuarios {
     public static Usuario buscarUsuario(String correo) {
         return usuarios.get(correo);
     }
+    
+    public static void eliminarUsuario(String correo) {
+    usuarios.remove(correo);
+}
 }

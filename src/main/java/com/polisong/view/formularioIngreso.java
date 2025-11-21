@@ -4,6 +4,7 @@
  */
 package com.polisong.view;
 
+import com.polisong.controller.UsuarioController;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.BorderFactory;
@@ -369,8 +370,30 @@ public class formularioIngreso extends javax.swing.JFrame {
         return;
     }
     
+            // ---- AQUI SE INTEGRA CON LA BASE DE DATOS ----
+    UsuarioController controller = new UsuarioController();
+    String u = controller.autenticarUsuario(correo, contrasena);
+
+    if (u == null) {
+        JOptionPane.showMessageDialog(this,
+            "Usuario o contraseña incorrectos.",
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+
+        return;
+    }
+/*
+    // LOGIN EXITOSO
+    JOptionPane.showMessageDialog(this,
+        "Inicio de sesión exitoso.\nBienvenido " + u.getNombre(),
+        "Bienvenido",
+        JOptionPane.INFORMATION_MESSAGE);*/
+
+  
+    
+    
         // Buscar usuario
-      Usuario u = gestorUsuarios.buscarUsuario(correo);
+      /*Usuario u = gestorUsuarios.buscarUsuario(correo);
       
       if (u == null) {
         JOptionPane.showMessageDialog(this, "El usuario no existe o no está registrado.");
@@ -380,7 +403,7 @@ public class formularioIngreso extends javax.swing.JFrame {
         if (!u.getContrasena().equals(contrasena)) {
         JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
         return;
-        }
+        }*/
     
        // 5. Si todo está correcto
     JOptionPane.showMessageDialog(this, 

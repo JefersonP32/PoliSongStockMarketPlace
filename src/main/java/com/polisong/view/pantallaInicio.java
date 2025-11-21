@@ -4,17 +4,24 @@
  */
 package com.polisong.view;
 
+
+
 /**
  *
  * @author CAMILO
  */
 public class pantallaInicio extends javax.swing.JFrame {
+    
 
-    /**
-     * Creates new form pantallaInicio
-     */
+
+   
     public pantallaInicio() {
+
         initComponents();
+        pack();
+        setSize(1199, 650);
+        setLocationRelativeTo(null);
+        
         
                     // Botón transparente con borde invisible
     jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
@@ -279,6 +286,11 @@ public class pantallaInicio extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("CUENTA");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, -1, -1));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -352,6 +364,12 @@ public class pantallaInicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      cuenta ventana = new cuenta();
+      ventana.setVisible(true);
+      this.dispose();  
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

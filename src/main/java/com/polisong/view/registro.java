@@ -4,6 +4,7 @@
  */
 package com.polisong.view;
 
+import com.polisong.controller.UsuarioController;
 import com.polisong.model.gestorUsuarios;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
@@ -25,6 +26,10 @@ public class registro extends javax.swing.JFrame {
      */
     public registro() {
         initComponents();
+        
+        pack();
+        setLocationRelativeTo(null);
+        
         bordeOriginal = jTextField1.getBorder();
         
 
@@ -179,6 +184,8 @@ public class registro extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -211,30 +218,30 @@ public class registro extends javax.swing.JFrame {
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
 
         jLabel10.setText("Nombre");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, -1, -1));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
 
         jLabel11.setText("Apellido");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, -1, -1));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, -1, -1));
 
         jLabel12.setText("Direccion de correo electronico");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, -1, -1));
 
         jLabel13.setText("Contraseña");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, -1, -1));
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 360, -1, -1));
 
         jLabel14.setText("Confirmar contraseña");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, -1, -1));
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, 290, 30));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, -1, -1));
+        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, 290, 30));
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 290, 30));
-        jPanel3.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 290, 30));
-        jPanel3.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, 290, 30));
-        jPanel3.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 290, 30));
+        jPanel3.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 290, 30));
+        jPanel3.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 290, 30));
+        jPanel3.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 290, 30));
+        jPanel3.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 290, 30));
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -281,6 +288,12 @@ public class registro extends javax.swing.JFrame {
         jButton7.setText("CONTACTO");
         jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "proveedor", "comprador", "administrador", " " }));
+        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 450, -1, -1));
+
+        jLabel3.setText("Tipo de cuenta");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, -1, -1));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/registro polisong.jpg"))); // NOI18N
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1450, 600));
@@ -308,6 +321,7 @@ public class registro extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         formularioIngreso fi = new formularioIngreso();
         fi.setVisible(true);
+        this.dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -395,6 +409,26 @@ public class registro extends javax.swing.JFrame {
         return;
     }
     
+    
+        // ---- INTEGRACIÓN CON BASE DE DATOS ----
+    UsuarioController controller = new UsuarioController();
+        String rol = jComboBox1.getSelectedItem().toString();
+    boolean registrado = controller.registrarUsuario(nombre, apellido, correo, contrasena, rol);
+
+    if (!registrado) {
+        JOptionPane.showMessageDialog(this,
+            "No se pudo registrar el usuario. Revise los datos.",
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Registro exitoso
+    JOptionPane.showMessageDialog(this, 
+        "Cuenta creada correctamente.", 
+        "Registro exitoso", 
+        JOptionPane.INFORMATION_MESSAGE);
+    
     gestorUsuarios.registrarUsuario(nombre, apellido, correo, contrasena);
     
         // 6. Todo correcto → registrar usuario
@@ -452,6 +486,7 @@ public class registro extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -459,6 +494,7 @@ public class registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
