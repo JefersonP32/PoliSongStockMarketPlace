@@ -415,13 +415,13 @@ public class registro extends javax.swing.JFrame {
         String rol = jComboBox1.getSelectedItem().toString();
     boolean registrado = controller.registrarUsuario(nombre, apellido, correo, contrasena, rol);
 
-    if (!registrado) {
+    /*if (!registrado) {
         JOptionPane.showMessageDialog(this,
             "No se pudo registrar el usuario. Revise los datos.",
             "Error",
             JOptionPane.ERROR_MESSAGE);
         return;
-    }
+    }*/
 
     // Registro exitoso
     JOptionPane.showMessageDialog(this, 
@@ -429,7 +429,7 @@ public class registro extends javax.swing.JFrame {
         "Registro exitoso", 
         JOptionPane.INFORMATION_MESSAGE);
     
-    gestorUsuarios.registrarUsuario(nombre, apellido, correo, contrasena);
+    //gestorUsuarios.registrarUsuario(nombre, apellido, correo, contrasena);
     
         // 6. Todo correcto → registrar usuario
     JOptionPane.showMessageDialog(this, 

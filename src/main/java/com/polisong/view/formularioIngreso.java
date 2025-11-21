@@ -372,7 +372,8 @@ public class formularioIngreso extends javax.swing.JFrame {
     
             // ---- AQUI SE INTEGRA CON LA BASE DE DATOS ----
     UsuarioController controller = new UsuarioController();
-    String u = controller.autenticarUsuario(correo, contrasena);
+    Usuario u = controller.autenticarUsuario(correo, contrasena);
+    
 
     if (u == null) {
         JOptionPane.showMessageDialog(this,
@@ -404,7 +405,7 @@ public class formularioIngreso extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
         return;
         }*/
-    
+    gestorUsuarios.usuarioActual = u;
        // 5. Si todo está correcto
     JOptionPane.showMessageDialog(this, 
         "Inicio de sesión exitoso.", 

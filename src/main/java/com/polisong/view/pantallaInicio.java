@@ -4,6 +4,10 @@
  */
 package com.polisong.view;
 
+import com.polisong.model.Usuario;
+import com.polisong.model.gestorUsuarios;
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -366,9 +370,15 @@ public class pantallaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      cuenta ventana = new cuenta();
+      /*cuenta ventana = new cuenta(Usuario);
       ventana.setVisible(true);
-      this.dispose();  
+      this.dispose();  */
+      
+        if (gestorUsuarios.usuarioActual != null) {
+        cuenta c = new cuenta(gestorUsuarios.usuarioActual);
+        c.setVisible(true);
+        this.dispose();
+        } 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

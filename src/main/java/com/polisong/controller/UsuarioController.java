@@ -97,25 +97,29 @@ public class UsuarioController {
     }
     
     
-    public String autenticarUsuario(String correo, String contrasena) {
+    public Usuario autenticarUsuario(String correo, String contrasena) {
         UsuarioDAO dao = new UsuarioDAO();
 
-       
-        if (correo == null || correo.trim().isEmpty()) {
-            return "Error: el correo no puede estar vacio.";
-        }
+    if (correo == null || correo.trim().isEmpty()) {
+        System.out.println("Error: el correo no puede estar vacío.");
+        return null;
+    }
 
-        if (contrasena == null || contrasena.trim().isEmpty()) {
-            return "Error: la contraseña no puede estar vacía.";
-        }
+    if (contrasena == null || contrasena.trim().isEmpty()) {
+        System.out.println("Error: la contraseña no puede estar vacía.");
+        return null;
+    }
 
-        Usuario usuario = dao.autenticarUsuario(correo, contrasena);
+    // Consulta a la base de datos
+    Usuario usuario = dao.autenticarUsuario(correo, contrasena);
 
-        if (usuario != null) {
-            return "Autenticacion exitosa. Bienvenido, " + usuario.getNombre() +
-                   " (" + usuario.getRol() + ")";
-        } else {
-            return " Credenciales incorrectas. Verifica el correo y la contraseña.";
+    if (usuario != null) {
+        System.out.println("Autenticación exitosa: " 
+                           + usuario.getNombre() + " (" + usuario.getRol() + ")");
+        return usuario;  // IMPORTANTE: retornas el usuario completo
+    } else {
+        System.out.println("Credenciales incorrectas.");
+        return null;
         }
     }
 }
