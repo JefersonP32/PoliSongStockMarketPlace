@@ -4,6 +4,10 @@ package com.polisong.view;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import com.polisong.dao.CancionDAO;
+import com.polisong.model.cancion;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +23,42 @@ public class Catalogo extends javax.swing.JFrame {
     private JComboBox<String> comboGenero;
     private JScrollPane scrollCatalogo;
     private JPanel panelCatalogo;
+    
+    
+    private JPanel crearCardCancionDB(cancion c) {
+    JPanel card = new JPanel(new BorderLayout());
+    card.setBackground(Color.WHITE);
+    card.setPreferredSize(new Dimension(200, 250));
+    card.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+
+    JLabel lblTitulo = new JLabel(c.getNombre(), SwingConstants.CENTER);
+    lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+
+    JLabel lblArtista = new JLabel(c.getArtista(), SwingConstants.CENTER);
+    lblArtista.setFont(new Font("Arial", Font.PLAIN, 14));
+
+    JPanel info = new JPanel(new GridLayout(2, 1));
+    info.add(lblTitulo);
+    info.add(lblArtista);
+
+    JButton verBtn = new JButton("Ver detalle");
+    verBtn.setBackground(new Color(225, 6, 0));
+    verBtn.setForeground(Color.WHITE);
+
+    // Acción para abrir detalle
+    verBtn.addActionListener(e -> {
+        VerDetalleCancion ventana = new VerDetalleCancion();
+        ventana.setVisible(true);
+        ventana.cargarCancionPorId(c.getIdCancion());
+    });
+
+    card.add(info, BorderLayout.CENTER);
+    card.add(verBtn, BorderLayout.SOUTH);
+
+    return card;
+}
+    
+    
 
     /**
      * Creates new form Catalogo
@@ -26,6 +66,7 @@ public class Catalogo extends javax.swing.JFrame {
     public Catalogo() {
         initComponents();
         construirCatalogo();
+        cargarCatalogoBD();
     }
     private void construirCatalogo() {
 
@@ -57,6 +98,7 @@ public class Catalogo extends javax.swing.JFrame {
     btnBuscar.setBackground(new Color(225, 6, 0));
     btnBuscar.setForeground(Color.WHITE);
     panelBuscador.add(btnBuscar);
+    btnBuscar.addActionListener(e -> filtrarPorNombre());
 
     panelBuscador.add(new JLabel("Género:"));
 
@@ -64,6 +106,7 @@ public class Catalogo extends javax.swing.JFrame {
         "Todos", "Rock", "Pop", "Jazz", "Salsa", "Reggaeton", "Vallenato"
     });
     panelBuscador.add(comboGenero);
+    comboGenero.addActionListener(e -> filtrarPorGenero());
 
     jPanelBase.add(panelBuscador, BorderLayout.CENTER);
 
@@ -82,6 +125,21 @@ public class Catalogo extends javax.swing.JFrame {
 
     jPanelBase.add(scrollCatalogo, BorderLayout.SOUTH);
 }
+    
+    private void cargarCatalogoBD() {
+    panelCatalogo.removeAll(); // limpia cards
+
+    CancionDAO dao = new CancionDAO();
+    List<cancion> lista = dao.visualizarCatalogo();
+
+    for (cancion c : lista) {
+        panelCatalogo.add(crearCardCancionDB(c));
+    }
+
+    panelCatalogo.revalidate();
+    panelCatalogo.repaint();
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,6 +201,45 @@ private JPanel crearCardCancion(String nombre, String artista) {
 
         return card;
     }
+
+private void filtrarPorNombre() {
+    String texto = txtBuscar.getText().trim();
+
+    panelCatalogo.removeAll();
+
+    CancionDAO dao = new CancionDAO();
+    List<cancion> lista = dao.buscarCanciones(texto);
+
+    for (cancion c : lista) {
+        panelCatalogo.add(crearCardCancionDB(c));
+    }
+
+    panelCatalogo.revalidate();
+    panelCatalogo.repaint();
+}
+
+private void filtrarPorGenero() {
+    int index = comboGenero.getSelectedIndex();
+
+    // 0 = todos
+    if (index == 0) {
+        cargarCatalogoBD();
+        return;
+    }
+
+    panelCatalogo.removeAll();
+
+    CancionDAO dao = new CancionDAO();
+    List<cancion> lista = dao.buscarPorGenero(index);
+
+    for (cancion c : lista) {
+        panelCatalogo.add(crearCardCancionDB(c));
+    }
+
+    panelCatalogo.revalidate();
+    panelCatalogo.repaint();
+}
+
     
     /**
      * @param args the command line arguments

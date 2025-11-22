@@ -1,20 +1,81 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.polisong.view;
 
-/**
- *
- * @author andre
- */
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import com.polisong.dao.CancionDAO;
+import com.polisong.model.cancion;
+import java.util.List;
+
+
 public class VerDetalleCancion extends javax.swing.JPanel {
+    
+    public void cargarCancionPorId(int id) {
+    CancionDAO dao = new CancionDAO();
+    com.polisong.model.cancion c = dao.verDetalleCancion(id);
+
+    if (c == null) {
+        JOptionPane.showMessageDialog(this, "No se encontró la canción.");
+        return;
+    }
+
+    lblNombreValor.setText(c.getNombre());
+    lblArtistaValor.setText(c.getArtista());
+    lblGeneroValor.setText(String.valueOf(c.getIdGenero()));
+    lblDuracionValor.setText(String.valueOf(c.getDuracion()));
+}
+    
+    public static void main(String[] args) {
+    try {
+        for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    java.awt.EventQueue.invokeLater(() -> {
+        JFrame frame = new JFrame("Detalle de Canción");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(900, 600);
+
+        // AGREGAMOS TU PANEL AQUÍ
+        frame.add(new VerDetalleCancion());
+
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    });
+}
 
     /**
      * Creates new form VerDetalleCancion
      */
+    
+        private JPanel panelHeader;
+    private JLabel titulo;
+
+    private JPanel panelBuscador;
+    private JTextField txtBuscar;
+    private JButton btnBuscar;
+
+    private JPanel panelInfo;
+    private JLabel lblNombreValor;
+    private JLabel lblArtistaValor;
+    private JLabel lblGeneroValor;
+    private JLabel lblDuracionValor;
+    
     public VerDetalleCancion() {
-        initComponents();
+        initComponents();      // ← LO GENERA NETBEANS
+        construirDetalle();    
     }
 
     /**
@@ -26,19 +87,138 @@ public class VerDetalleCancion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelBase = new javax.swing.JPanel();
+
+        jPanelBase.setLayout(new java.awt.BorderLayout());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 400, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 300, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+     private void construirDetalle() {
+
+        // --- BASE ---
+        jPanelBase.setLayout(new BorderLayout());
+        jPanelBase.setBackground(Color.WHITE);
+
+        // ============= HEADER =============
+        panelHeader = new JPanel();
+        panelHeader.setBackground(new Color(51, 51, 51));
+        panelHeader.setPreferredSize(new Dimension(900, 70));
+
+        titulo = new JLabel("DETALLE DE CANCIÓN");
+        titulo.setForeground(Color.WHITE);
+        titulo.setFont(new Font("Arial Black", Font.BOLD, 26));
+
+        panelHeader.add(titulo);
+        jPanelBase.add(panelHeader, BorderLayout.NORTH);
+
+        // ============= BUSCADOR =============
+        panelBuscador = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
+        panelBuscador.setBackground(Color.WHITE);
+
+        JLabel lblBuscar = new JLabel("Buscar canción:");
+        lblBuscar.setFont(new Font("Arial", Font.PLAIN, 16));
+        panelBuscador.add(lblBuscar);
+
+        txtBuscar = new JTextField(25);
+        txtBuscar.setFont(new Font("Arial", Font.PLAIN, 14));
+        panelBuscador.add(txtBuscar);
+
+        btnBuscar = new JButton("Buscar");
+        btnBuscar.setBackground(new Color(225, 6, 0));
+        btnBuscar.setForeground(Color.WHITE);
+        btnBuscar.setFocusPainted(false);
+        panelBuscador.add(btnBuscar);
+
+        jPanelBase.add(panelBuscador, BorderLayout.CENTER);
+
+        // ============= PANEL DE INFORMACIÓN =============
+        panelInfo = new JPanel();
+        panelInfo.setLayout(new GridLayout(4, 2, 10, 10));
+        panelInfo.setBackground(Color.WHITE);
+        panelInfo.setBorder(new EmptyBorder(20, 30, 20, 30));
+
+        // --- Labels estáticos ---
+        JLabel lblNombre = new JLabel("Nombre:");
+        JLabel lblArtista = new JLabel("Artista:");
+        JLabel lblGenero = new JLabel("Género:");
+        JLabel lblDuracion = new JLabel("Duración:");
+
+        lblNombre.setFont(new Font("Arial", Font.BOLD, 16));
+        lblArtista.setFont(new Font("Arial", Font.BOLD, 16));
+        lblGenero.setFont(new Font("Arial", Font.BOLD, 16));
+        lblDuracion.setFont(new Font("Arial", Font.BOLD, 16));
+
+        // --- Valores dinámicos ---
+        lblNombreValor = new JLabel("-");
+        lblArtistaValor = new JLabel("-");
+        lblGeneroValor = new JLabel("-");
+        lblDuracionValor = new JLabel("-");
+
+        lblNombreValor.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblArtistaValor.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblGeneroValor.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblDuracionValor.setFont(new Font("Arial", Font.PLAIN, 16));
+
+        // --- Agregar al panel ---
+        panelInfo.add(lblNombre);
+        panelInfo.add(lblNombreValor);
+
+        panelInfo.add(lblArtista);
+        panelInfo.add(lblArtistaValor);
+
+        panelInfo.add(lblGenero);
+        panelInfo.add(lblGeneroValor);
+
+        panelInfo.add(lblDuracion);
+        panelInfo.add(lblDuracionValor);
+
+        jPanelBase.add(panelInfo, BorderLayout.SOUTH);
+
+        // ============= ACCIÓN DEL BOTÓN =============
+        btnBuscar.addActionListener(e -> buscar());
+    }
+     
+     private void buscar() {
+    String nombre = txtBuscar.getText().trim();
+
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Escribe un nombre de canción.");
+        return;
+    }
+
+    // Llamamos al DAO
+    CancionDAO dao = new CancionDAO();
+    List<cancion> resultados = dao.buscarCanciones(nombre);
+
+    if (resultados.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No se encontró la canción.");
+        return;
+    }
+
+    // Usamos el PRIMER resultado
+    cancion c = resultados.get(0);
+
+    lblNombreValor.setText(c.getNombre());
+    lblArtistaValor.setText(c.getArtista());
+    lblGeneroValor.setText(String.valueOf(c.getIdGenero()));
+    lblDuracionValor.setText(String.valueOf(c.getDuracion()));
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanelBase;
     // End of variables declaration//GEN-END:variables
 }
