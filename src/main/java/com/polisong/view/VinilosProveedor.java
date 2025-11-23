@@ -4,6 +4,19 @@
  */
 package com.polisong.view;
 
+import com.polisong.controller.ViniloController;
+import com.polisong.model.Vinilo;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jeferson
@@ -15,6 +28,17 @@ public class VinilosProveedor extends javax.swing.JFrame {
      */
     public VinilosProveedor() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        personalizarTabla();
+        cargarVinilosEnTabla();
+        btnRegistrar.setName("registrar");
+btnEditar.setName("editar");
+btnEliminar.setName("eliminar");
+personalizarBoton(btnRegistrar);
+personalizarBoton(btnEditar);
+personalizarBoton(btnEliminar);
+
+
     }
 
     /**
@@ -27,43 +51,70 @@ public class VinilosProveedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        TablaVinilosP = new javax.swing.JTable();
+        btnRegistrar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaVinilosP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Artista", "Año", "Precio", "Stock", "Descripción"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 610, 240));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TablaVinilosP);
+        if (TablaVinilosP.getColumnModel().getColumnCount() > 0) {
+            TablaVinilosP.getColumnModel().getColumn(0).setMinWidth(50);
+            TablaVinilosP.getColumnModel().getColumn(0).setPreferredWidth(50);
+            TablaVinilosP.getColumnModel().getColumn(0).setMaxWidth(50);
+            TablaVinilosP.getColumnModel().getColumn(1).setMinWidth(130);
+            TablaVinilosP.getColumnModel().getColumn(1).setPreferredWidth(130);
+            TablaVinilosP.getColumnModel().getColumn(1).setMaxWidth(130);
+            TablaVinilosP.getColumnModel().getColumn(2).setResizable(false);
+            TablaVinilosP.getColumnModel().getColumn(3).setMinWidth(80);
+            TablaVinilosP.getColumnModel().getColumn(3).setPreferredWidth(80);
+            TablaVinilosP.getColumnModel().getColumn(3).setMaxWidth(80);
+            TablaVinilosP.getColumnModel().getColumn(4).setResizable(false);
+            TablaVinilosP.getColumnModel().getColumn(5).setMinWidth(70);
+            TablaVinilosP.getColumnModel().getColumn(5).setPreferredWidth(70);
+            TablaVinilosP.getColumnModel().getColumn(5).setMaxWidth(70);
+            TablaVinilosP.getColumnModel().getColumn(6).setMinWidth(230);
+            TablaVinilosP.getColumnModel().getColumn(6).setPreferredWidth(230);
+            TablaVinilosP.getColumnModel().getColumn(6).setMaxWidth(230);
+        }
 
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 480, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 710, 340));
 
-        jButton2.setText("jButton2");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 440, -1, -1));
+        btnRegistrar.setText("Registrar");
+        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, -1));
 
-        jButton3.setText("jButton3");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 530, -1, -1));
+        btnEliminar.setText("Eliminar");
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 540, -1, -1));
+
+        btnEditar.setText("Editar");
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 540, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 102));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GestionVinilos.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1903, 733));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -102,13 +153,193 @@ public class VinilosProveedor extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    
+    private void personalizarTabla() {
+
+    TablaVinilosP.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+    TablaVinilosP.setRowHeight(28);
+    TablaVinilosP.setFillsViewportHeight(true);
+
+    // Quitar todas las líneas
+    TablaVinilosP.setShowGrid(false);
+    TablaVinilosP.setShowHorizontalLines(false);
+    TablaVinilosP.setShowVerticalLines(false);
+    TablaVinilosP.setIntercellSpacing(new java.awt.Dimension(0, 0));
+    TablaVinilosP.setRowMargin(0);
+
+    // ENCABEZADO
+    javax.swing.table.JTableHeader header = TablaVinilosP.getTableHeader();
+    header.setReorderingAllowed(false);
+    header.setResizingAllowed(false);
+    header.setOpaque(true);
+    header.setBackground(new Color(1, 1, 1)); // gris oscuro
+    header.setForeground(Color.WHITE);
+    header.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+    header.setBorder(BorderFactory.createEmptyBorder());
+
+    header.setDefaultRenderer((table, value, isSelected, hasFocus, row, column) -> {
+        javax.swing.JLabel lbl = new javax.swing.JLabel(value == null ? "" : value.toString());
+        lbl.setOpaque(true);
+        lbl.setBackground(new Color(107, 107, 107));
+        lbl.setForeground(Color.WHITE);
+        lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+        lbl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbl.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
+        return lbl;
+    });
+
+    // CELDAS
+    javax.swing.table.DefaultTableCellRenderer cell = new javax.swing.table.DefaultTableCellRenderer();
+    cell.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
+    cell.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+    TablaVinilosP.setDefaultRenderer(Object.class, cell);
+
+    // SELECCIÓN SUAVE
+    TablaVinilosP.setSelectionBackground(new Color(69, 68, 68));
+    TablaVinilosP.setSelectionForeground(Color.BLACK);
+
+    // SCROLL SIMPLE Y DELGADO
+    jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
+    jScrollPane1.getViewport().setBackground(Color.WHITE);
+
+    javax.swing.JScrollBar vBar = jScrollPane1.getVerticalScrollBar();
+    vBar.setPreferredSize(new java.awt.Dimension(8, 8));
+    vBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+        @Override
+        protected void configureScrollBarColors() {
+            this.thumbColor = new Color(120, 120, 120);
+            this.trackColor = new Color(245, 245, 245);
+        }
+
+        @Override
+        protected javax.swing.JButton createDecreaseButton(int orientation) {
+            return crearBotonInvisible();
+        }
+
+        @Override
+        protected javax.swing.JButton createIncreaseButton(int orientation) {
+            return crearBotonInvisible();
+        }
+
+        private javax.swing.JButton crearBotonInvisible() {
+            javax.swing.JButton btn = new javax.swing.JButton();
+            btn.setPreferredSize(new java.awt.Dimension(0, 0));
+            btn.setOpaque(false);
+            btn.setContentAreaFilled(false);
+            btn.setBorderPainted(false);
+            return btn;
+        }
+    });
+}
+    
+    
+    private void personalizarBoton(JButton boton) {
+
+    Color colorNormal;
+    Color colorHover;
+
+    // Detectar qué botón es
+    if (boton.getName() != null) {
+        switch (boton.getName()) {
+            case "registrar":
+                colorNormal = new Color(46, 204, 113);   // verde
+                colorHover  = new Color(39, 174, 96);
+                break;
+
+            case "editar":
+                colorNormal = new Color(52, 152, 219);   // azul
+                colorHover  = new Color(41, 128, 185);
+                break;
+
+            case "eliminar":
+                colorNormal = new Color(231, 76, 60);    // rojo
+                colorHover  = new Color(192, 57, 43);
+                break;
+
+            default:
+                colorNormal = new Color(150, 150, 150);
+                colorHover  = new Color(120, 120, 120);
+                break;
+        }
+    } else {
+        // Por si el botón no tiene nombre
+        colorNormal = new Color(150, 150, 150);
+        colorHover  = new Color(120, 120, 120);
+    }
+
+    // --- ESTILO GENERAL DEL BOTÓN ---
+    boton.setBackground(colorNormal);
+    boton.setForeground(Color.WHITE);
+    boton.setFont(new java.awt.Font("Bahnschrift", java.awt.Font.BOLD, 14));
+    boton.setOpaque(false);
+    boton.setContentAreaFilled(false);
+    boton.setBorderPainted(false);
+    boton.setFocusPainted(false);
+    boton.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
+
+    boton.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+        @Override
+        public void paint(Graphics g, JComponent c) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2.setColor(boton.getBackground());
+            g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
+
+            g2.dispose();
+            super.paint(g, c);
+        }
+    });
+
+    boton.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            boton.setBackground(colorHover);
+            boton.repaint();
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            boton.setBackground(colorNormal);
+            boton.repaint();
+        }
+    });
+}
+    
+    
+    public void cargarVinilosEnTabla() {
+
+    DefaultTableModel modelo = (DefaultTableModel) TablaVinilosP.getModel();
+    modelo.setRowCount(0);
+
+    ViniloController controller = new ViniloController();
+    List<Vinilo> lista = controller.listarVinilos(3);
+
+    for (Vinilo v : lista) {
+        modelo.addRow(new Object[]{
+            v.getIdVinilo(),
+            v.getNombre(),
+            v.getArtista(),
+            v.getAnioSalida(),
+            v.getPrecio(),
+            v.getStock(),
+            v.getDescripcion()
+        });
+    }
+}
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTable TablaVinilosP;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
