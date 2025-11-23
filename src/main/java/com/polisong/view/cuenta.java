@@ -43,16 +43,25 @@ public class cuenta extends javax.swing.JFrame {
     initComponents();
     
     jButton2.setOpaque(false);
+    
     jButton2.setContentAreaFilled(false);
+    
     jButton2.setBorderPainted(false);
+    
     jButton2.setFocusPainted(false);
+    
     setLocationRelativeTo(null);
 
     jLabel4.setText(usuario.getNombre() + " " + usuario.getApellido());
+    
     jLabel9.setText(usuario.getNombre());
+    
     jLabel10.setText(usuario.getApellido());
+    
     jLabel11.setText(usuario.getCorreo());
+    
     jLabel12.setText(usuario.getContrasena());
+    
     jLabel16.setText(usuario.getRol()); 
 }
 
@@ -146,7 +155,7 @@ public class cuenta extends javax.swing.JFrame {
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 420, 10));
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vinyl.png"))); // NOI18N
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 250, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 240, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Eliminar cuenta");
@@ -155,7 +164,7 @@ public class cuenta extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("Rol");

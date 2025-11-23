@@ -252,7 +252,7 @@ public class registro extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, -1, -1));
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 490, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         jButton2.setText("CANCELAR");
@@ -261,7 +261,7 @@ public class registro extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, -1, -1));
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 490, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
@@ -402,6 +402,7 @@ public class registro extends javax.swing.JFrame {
         // 5. Validar coincidencia de contraseñas
     if (!contrasena.equals(confirmar)) {
         JOptionPane.showMessageDialog(this, 
+                
             "Las contraseñas no coinciden.", 
             "Error", 
             JOptionPane.WARNING_MESSAGE);
@@ -412,12 +413,14 @@ public class registro extends javax.swing.JFrame {
     
         // ---- INTEGRACIÓN CON BASE DE DATOS ----
     UsuarioController controller = new UsuarioController();
+    
     String rol = jComboBox1.getSelectedItem().toString();
+    
     boolean registrado = controller.registrarUsuario(nombre, apellido, correo, contrasena, rol);
 
     if (!registrado) {
     JOptionPane.showMessageDialog(this,
-        "No se pudo registrar el usuario. El correo posiblemente ya está registrado .",
+        "No se pudo registrar el usuario. El correo posiblemente ya está registrado.",
         "Error",
         JOptionPane.ERROR_MESSAGE);
     return;

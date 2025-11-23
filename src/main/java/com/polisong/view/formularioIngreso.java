@@ -28,9 +28,13 @@ public class formularioIngreso extends javax.swing.JFrame {
      */
     public formularioIngreso() {
         initComponents();
+        
                 pack();
+                
         setSize(1199, 650);
+        
         setLocationRelativeTo(null);
+        
         
         bordeOriginal = jTextField1.getBorder(); // guardamos el borde original del campo de correo
         
@@ -60,8 +64,11 @@ public class formularioIngreso extends javax.swing.JFrame {
     
         // Botón transparente con borde invisible
     jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    
     jButton4.setContentAreaFilled(false);
+    
     jButton4.setFocusPainted(false);
+    
     jButton4.setOpaque(false);
 
     // Efecto hover (subrayado)
@@ -83,8 +90,11 @@ public class formularioIngreso extends javax.swing.JFrame {
     
             // Botón transparente con borde invisible
     jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    
     jButton5.setContentAreaFilled(false);
+    
     jButton5.setFocusPainted(false);
+    
     jButton5.setOpaque(false);
 
     // Efecto hover (subrayado)
@@ -184,7 +194,6 @@ public class formularioIngreso extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1500, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -225,7 +234,7 @@ public class formularioIngreso extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         jLabel14.setText("¿YA ESTAS REGISTRADO?");
@@ -262,7 +271,7 @@ public class formularioIngreso extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 390, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));

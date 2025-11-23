@@ -29,8 +29,11 @@ public class pantallaInicio extends javax.swing.JFrame {
         
                     // Botón transparente con borde invisible
     jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    
     jButton1.setContentAreaFilled(false);
+    
     jButton1.setFocusPainted(false);
+    
     jButton1.setOpaque(false);
 
     // Efecto hover (subrayado)
@@ -78,8 +81,11 @@ public class pantallaInicio extends javax.swing.JFrame {
     
                         // Botón transparente con borde invisible
     jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
+    
     jButton2.setContentAreaFilled(false);
+    
     jButton2.setFocusPainted(false);
+    
     jButton2.setOpaque(false);
 
     // Efecto hover (subrayado)
@@ -346,7 +352,7 @@ public class pantallaInicio extends javax.swing.JFrame {
         jButton9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("COMPRA AHORA");
-        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, 50));
+        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, -1, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pantalla inicio polisong.jpg"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 620));
