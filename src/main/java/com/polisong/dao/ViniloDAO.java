@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViniloDAO {
     private final String URL = "jdbc:sqlite:src/main/resources/database/polisong.db"; // Cambia por tu ruta o conexión
@@ -30,31 +32,36 @@ public class ViniloDAO {
         }
     }
     
-     public Vinilo consultarViniloPorNombre(String nombre) {
-        String sql = "SELECT * FROM vinilo WHERE nombre = ?";
-        try (Connection conn = DriverManager.getConnection(URL);
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    public List<Vinilo> consultarVinilosPorProveedor(int idProveedor) {
+    List<Vinilo> lista = new ArrayList<>();
+    String sql = "SELECT * FROM vinilo WHERE id_proveedor = ?";
 
-            ps.setString(1, nombre);
-            ResultSet rs = ps.executeQuery();
+    try (Connection conn = DriverManager.getConnection(URL);
+         PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            if (rs.next()) {
-                Vinilo v = new Vinilo();
-                v.setIdVinilo(rs.getInt("id_vinilo"));
-                v.setNombre(rs.getString("nombre"));
-                v.setArtista(rs.getString("artista"));
-                v.setAnioSalida(rs.getInt("anio_salida"));
-                v.setPrecio(rs.getDouble("precio"));
-                v.setStock(rs.getInt("stock"));
-                v.setDescripcion(rs.getString("descripcion"));
-                v.setIdProveedor(rs.getInt("id_proveedor"));
-                return v;
-            }
-        } catch (Exception e) {
-            System.out.println("Error al consultar vinilo: " + e.getMessage());
+        ps.setInt(1, idProveedor);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Vinilo v = new Vinilo();
+            v.setIdVinilo(rs.getInt("id_vinilo"));
+            v.setNombre(rs.getString("nombre"));
+            v.setArtista(rs.getString("artista"));
+            v.setAnioSalida(rs.getInt("anio_salida"));
+            v.setPrecio(rs.getDouble("precio"));
+            v.setStock(rs.getInt("stock"));
+            v.setDescripcion(rs.getString("descripcion"));
+            v.setIdProveedor(rs.getInt("id_proveedor"));
+            lista.add(v);
         }
-        return null; // Si no se encontró
+
+    } catch (Exception e) {
+        System.out.println("Error al cargar vinilos: " + e.getMessage());
     }
+
+    return lista;
+}
+
      
      public boolean editarVinilo(Vinilo vinilo) {
     String sql = """
