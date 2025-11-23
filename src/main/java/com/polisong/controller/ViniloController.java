@@ -2,8 +2,6 @@ package com.polisong.controller;
 
 import com.polisong.dao.ViniloDAO;
 import com.polisong.model.Vinilo;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ViniloController {
     private ViniloDAO dao;
@@ -50,15 +48,27 @@ public class ViniloController {
     }
     
     
-    public List<Vinilo> listarVinilos(int idProveedor) {
-    if (idProveedor <= 0) {
-        System.err.println("ID de proveedor inválido.");
-        return new ArrayList<>(); // devuelve lista vacía
+     public String consultarVinilo(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return "Debe ingresar un nombre para buscar el vinilo.";
+        }
+
+        Vinilo v = dao.consultarViniloPorNombre(nombre.trim());
+        if (v == null) {
+            return "No se encontró un vinilo con ese nombre.";
+        }
+
+        // Devolvemos la información formateada
+        return "Vinilo encontrado:\n" +
+               "ID: " + v.getIdVinilo() + "\n" +
+               "Nombre: " + v.getNombre() + "\n" +
+               "Artista: " + v.getArtista() + "\n" +
+               "Año: " + v.getAnioSalida() + "\n" +
+               "Precio: $" + v.getPrecio() + "\n" +
+               "Stock: " + v.getStock() + "\n" +
+               "Descripción: " + v.getDescripcion() + "\n" +
+               "ID Proveedor: " + v.getIdProveedor();
     }
-
-    return dao.consultarVinilosPorProveedor(idProveedor);
-}
-
      
      public String editarVinilo(int idVinilo, String nombre, String artista, int anio, double precio, int stock, String descripcion, int idProveedor) {
     // Validaciones
