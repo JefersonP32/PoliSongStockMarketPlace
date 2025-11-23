@@ -114,7 +114,7 @@ personalizarBoton(btnEliminar);
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 102));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GestionVinilos.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 660));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
