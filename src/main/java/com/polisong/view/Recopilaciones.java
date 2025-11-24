@@ -31,17 +31,16 @@ public class Recopilaciones extends javax.swing.JFrame {
     /**
      * Creates new form Recopilaciones
      */
-    private int idUsuario;
+    public int idUsuario;
 
     public Recopilaciones(int idUsuario) {
         this.idUsuario = idUsuario;
         initComponents();
         setLocationRelativeTo(null);
         personalizarTabla();
-        configurarBotonSoloTexto(inicio);
+        
         configurarBotonSoloTexto(catalogo);
-        configurarBotonPlaylist(playlist);
-        configurarBotonSoloTexto(contacto);
+        
         personalizarBoton(jButtonCrear, new Color(100, 100, 100), new Color(220, 53, 69)); // rojo → gris oscuro
         personalizarBoton(jButtonEliminar, new Color(220, 53, 69), new Color(100, 100, 100));// gris → gris más oscuro
         personalizarBoton(BtnEditar, new Color(100, 100, 100), new Color(220, 53, 69));
@@ -63,11 +62,9 @@ public class Recopilaciones extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButtonCrear = new javax.swing.JButton();
-        playlist = new javax.swing.JButton();
         catalogo = new javax.swing.JButton();
-        contacto = new javax.swing.JButton();
         BtnEditar = new javax.swing.JButton();
-        inicio = new javax.swing.JButton();
+        Atras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,7 +116,7 @@ public class Recopilaciones extends javax.swing.JFrame {
         getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 580, 90, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Disco - 1.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 30, 190, 120));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 20, 190, 120));
 
         jButtonCrear.setText("Crear Playlist");
         jButtonCrear.setBorder(null);
@@ -133,22 +130,9 @@ public class Recopilaciones extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 120, 40));
 
-        playlist.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
-        playlist.setText("Playlist");
-        playlist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playlistActionPerformed(evt);
-            }
-        });
-        getContentPane().add(playlist, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
-
         catalogo.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
         catalogo.setText("Catálogo");
         getContentPane().add(catalogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
-
-        contacto.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
-        contacto.setText("Contacto");
-        getContentPane().add(contacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
 
         BtnEditar.setText("Editar");
         BtnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,14 +142,16 @@ public class Recopilaciones extends javax.swing.JFrame {
         });
         getContentPane().add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 90, 40));
 
-        inicio.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
-        inicio.setText("Inicio");
-        inicio.addActionListener(new java.awt.event.ActionListener() {
+        Atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BtnAtras--1.PNG"))); // NOI18N
+        Atras.setBorder(null);
+        Atras.setContentAreaFilled(false);
+        Atras.setFocusPainted(false);
+        Atras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inicioActionPerformed(evt);
+                AtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
+        getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 40, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Recopilaciones.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -256,14 +242,6 @@ public class Recopilaciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
-    private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inicioActionPerformed
-
-    private void playlistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playlistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_playlistActionPerformed
-
     private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
         int fila = tableRecopilaciones.getSelectedRow();
 
@@ -293,6 +271,11 @@ public class Recopilaciones extends javax.swing.JFrame {
 
         dialog.setVisible(true);
     }//GEN-LAST:event_BtnEditarActionPerformed
+
+    private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
+
+        this.dispose();  // cierra la pantalla actual
+    }//GEN-LAST:event_AtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,17 +487,15 @@ public class Recopilaciones extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Atras;
     private javax.swing.JButton BtnEditar;
     private javax.swing.JButton catalogo;
-    private javax.swing.JButton contacto;
-    private javax.swing.JButton inicio;
     private javax.swing.JButton jButtonCrear;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton playlist;
     private javax.swing.JTable tableRecopilaciones;
     // End of variables declaration//GEN-END:variables
 }

@@ -42,8 +42,26 @@ public class Catalogo extends javax.swing.JFrame {
     info.add(lblArtista);
 
     JButton verBtn = new JButton("Ver detalle");
-    verBtn.setBackground(new Color(225, 6, 0));
-    verBtn.setForeground(Color.WHITE);
+verBtn.setBackground(new Color(225, 6, 0));
+verBtn.setForeground(Color.WHITE);
+
+// Acción para abrir el panel de detalle en un JDialog
+verBtn.addActionListener(e -> {
+    // Crear el diálogo
+    JDialog dialog = new JDialog(this, "Detalle de Canción", true); // true = modal
+    
+    // Crear el panel de detalle y cargar la canción
+    VerDetalleCancion panelDetalle = new VerDetalleCancion();
+    panelDetalle.cargarCancionPorId(c.getIdCancion());
+    
+    // Agregar el panel al diálogo
+    dialog.setContentPane(panelDetalle);
+    dialog.pack(); // Ajusta el tamaño al contenido
+    dialog.setLocationRelativeTo(null); // Centrar sobre la pantalla
+    dialog.setVisible(true); // Mostrar el diálogo
+});
+
+    
 
     // Acción para abrir detalle
     verBtn.addActionListener(e -> {
@@ -67,6 +85,7 @@ public class Catalogo extends javax.swing.JFrame {
         initComponents();
         construirCatalogo();
         cargarCatalogoBD();
+        this.setLocationRelativeTo(null);
     }
     private void construirCatalogo() {
 
@@ -153,6 +172,8 @@ public class Catalogo extends javax.swing.JFrame {
         jPanelBase = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1200, 660));
+        setSize(new java.awt.Dimension(1200, 660));
 
         jPanelBase.setLayout(new java.awt.BorderLayout());
 
@@ -162,7 +183,7 @@ public class Catalogo extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                .addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

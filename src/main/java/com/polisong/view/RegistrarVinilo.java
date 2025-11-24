@@ -5,6 +5,7 @@
 package com.polisong.view;
 
 import com.polisong.controller.ViniloController;
+import com.polisong.model.Usuario;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,8 +23,13 @@ public class RegistrarVinilo extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarVinilo
      */
-    public RegistrarVinilo() {
+   private VinilosProveedor padre;
+   private Usuario proveedorActual;
+    
+    public RegistrarVinilo(Usuario proveedor) {
         initComponents();
+        this.padre = padre;
+        this.proveedorActual = proveedor;
         this.setLocationRelativeTo(null);
         estilizarCampo(Nombre);
         estilizarCampo(Artista);
@@ -32,7 +38,14 @@ public class RegistrarVinilo extends javax.swing.JFrame {
         estilizarCampo(Anio);
         estilizarTextAreaPlano(Descripcion);
         personalizarBoton();
+        
     }
+    
+    
+    public RegistrarVinilo() {
+    initComponents();
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -168,8 +181,8 @@ public class RegistrarVinilo extends javax.swing.JFrame {
     int anio = 0;
     try {
         anio = Integer.parseInt(anioStr);
-        if (anio >= 1940) {
-            JOptionPane.showMessageDialog(this, "El año debe estar entre 1940");
+        if (anio < 1940) {
+            JOptionPane.showMessageDialog(this, "El año se mayor");
             return;
         }
     } catch (NumberFormatException e) {
@@ -215,12 +228,14 @@ public class RegistrarVinilo extends javax.swing.JFrame {
         precio,
         stock,
         descripcion,
-        3  // <-- Este debe venir del login
+        proveedorActual.getIdUsuario() // <-- Este debe venir del login
     );
 
     JOptionPane.showMessageDialog(this, resultado);
-
+    this.dispose();
     // RECARGAR TABLA
+    VinilosProveedor crear = new VinilosProveedor(proveedorActual);
+    crear.setVisible(true);
     
     }//GEN-LAST:event_btnCrearActionPerformed
 

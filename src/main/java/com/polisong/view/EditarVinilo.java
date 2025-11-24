@@ -5,12 +5,14 @@
 package com.polisong.view;
 
 import com.polisong.controller.ViniloController;
+import com.polisong.model.Usuario;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -27,18 +29,30 @@ public class EditarVinilo extends javax.swing.JDialog {
      * 
      */
     private final VinilosProveedor ventanaPadre;
+    private Usuario proveedorActual;
+    private int idVinilo;
     
-    public EditarVinilo(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        this.setLocationRelativeTo(null);
-        personalizarBotonEditar();
-        this.ventanaPadre = (VinilosProveedor) parent;
-        setLocationRelativeTo(parent);
+    public EditarVinilo(java.awt.Frame parent, boolean modal, Usuario proveedor, int idVinilo) {
+    super(parent, modal);
+    initComponents();
+    this.setLocationRelativeTo(null);
+    personalizarBotonEditar();
+    this.ventanaPadre = (VinilosProveedor) parent;
+    this.proveedorActual = proveedor;
+    this.idVinilo = idVinilo;
+    setLocationRelativeTo(parent);
+}
+
+    private EditarVinilo(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    private int idVinilo;
-    private int idProveedor; // el proveedor logueado
+    
+    
+
+    
+    
+
 
 
     /**
@@ -188,14 +202,14 @@ public class EditarVinilo extends javax.swing.JDialog {
     // 4. Llamar al controller
     ViniloController controller = new ViniloController();
     String resultado = controller.editarVinilo(
-            1,
+            idVinilo,
             nombre,
             artista,
             anio,
             precio,
             stock,
             descripcion,
-            3 // proveedor logueado
+            proveedorActual.getIdUsuario()// proveedor logueado
     );
 
     // 5. Mostrar el resultado

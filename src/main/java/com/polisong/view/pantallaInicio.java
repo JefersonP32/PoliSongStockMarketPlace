@@ -6,6 +6,8 @@ package com.polisong.view;
 
 import com.polisong.model.Usuario;
 import com.polisong.model.gestorUsuarios;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -17,11 +19,12 @@ import javax.swing.JOptionPane;
 public class pantallaInicio extends javax.swing.JFrame {
     
 
-
+   private Usuario CompradorActual;
    
-    public pantallaInicio() {
+    public pantallaInicio(Usuario comprador) {
 
         initComponents();
+        this.CompradorActual = comprador;
         pack();
         setSize(1199, 650);
         setLocationRelativeTo(null);
@@ -220,6 +223,10 @@ public class pantallaInicio extends javax.swing.JFrame {
         }
     });
     }
+    
+    public pantallaInicio() {
+    initComponents();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -263,6 +270,7 @@ public class pantallaInicio extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel2.setPreferredSize(new java.awt.Dimension(1200, 599));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -311,21 +319,36 @@ public class pantallaInicio extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("CATALOGO");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, -1, -1));
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("COLECCIONES");
+        jButton6.setText("PLAYLIST");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, -1, -1));
 
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("BLOG");
+        jButton7.setText("DETALLE");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 160, -1, -1));
 
         jButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("CATALOGO");
+        jButton8.setText("CONTACTO");
         jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 160, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -383,9 +406,41 @@ public class pantallaInicio extends javax.swing.JFrame {
         if (gestorUsuarios.usuarioActual != null) {
         cuenta c = new cuenta(gestorUsuarios.usuarioActual);
         c.setVisible(true);
-        this.dispose();
         } 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    Catalogo cat = new Catalogo();
+    cat.setLocationRelativeTo(null);  // Centrar ventana
+    cat.setVisible(true);
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    Recopilaciones pl = new Recopilaciones(CompradorActual.getIdUsuario());
+    pl.setLocationRelativeTo(null); // centrar ventana
+    pl.setVisible(true);
+
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    // Crear un frame para mostrar el JPanel
+    JFrame frame = new JFrame("Detalle de la Canción");
+    
+    // Agregar el JPanel
+    VerDetalleCancion panel = new VerDetalleCancion();
+    frame.setContentPane(panel);
+
+    // Ajustar tamaño automático según el contenido
+    frame.pack();
+    
+    // Centrar la ventana
+    frame.setLocationRelativeTo(null);
+    
+    // Hacer visible
+    frame.setVisible(true);
+    
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

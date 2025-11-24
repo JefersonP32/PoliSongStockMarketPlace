@@ -221,4 +221,5 @@ public class VerDetalleCancion extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanelBase;
     // End of variables declaration//GEN-END:variables
+
 }

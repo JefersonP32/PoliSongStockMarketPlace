@@ -38,128 +38,8 @@ public class formularioIngreso extends javax.swing.JFrame {
         
         bordeOriginal = jTextField1.getBorder(); // guardamos el borde original del campo de correo
         
-         // Botón transparente con borde invisible
-    jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
-    jButton3.setContentAreaFilled(false);
-    jButton3.setFocusPainted(false);
-    jButton3.setOpaque(false);
-
-    // Efecto hover (subrayado)
-    jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            jButton3.setBorder(
-                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
-            );
-        }
-
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            jButton3.setBorder(
-                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
-            );
-        }
-    });
-    
-    
-        // Botón transparente con borde invisible
-    jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
-    
-    jButton4.setContentAreaFilled(false);
-    
-    jButton4.setFocusPainted(false);
-    
-    jButton4.setOpaque(false);
-
-    // Efecto hover (subrayado)
-    jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            jButton4.setBorder(
-                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
-            );
-        }
-
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            jButton4.setBorder(
-                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
-            );
-        }
-    });
-    
-            // Botón transparente con borde invisible
-    jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
-    
-    jButton5.setContentAreaFilled(false);
-    
-    jButton5.setFocusPainted(false);
-    
-    jButton5.setOpaque(false);
-
-    // Efecto hover (subrayado)
-    jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            jButton5.setBorder(
-                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
-            );
-        }
-
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            jButton5.setBorder(
-                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
-            );
-        }
-    });
-    
-    
-            // Botón transparente con borde invisible
-    jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
-    jButton6.setContentAreaFilled(false);
-    jButton6.setFocusPainted(false);
-    jButton6.setOpaque(false);
-
-    // Efecto hover (subrayado)
-    jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            jButton6.setBorder(
-                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
-            );
-        }
-
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            jButton6.setBorder(
-                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
-            );
-        }
-    });
-    
-            // Botón transparente con borde invisible
-    jButton7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0));
-    jButton7.setContentAreaFilled(false);
-    jButton7.setFocusPainted(false);
-    jButton7.setOpaque(false);
-
-    // Efecto hover (subrayado)
-    jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            jButton7.setBorder(
-                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, java.awt.Color.WHITE)
-            );
-        }
-
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            jButton7.setBorder(
-                javax.swing.BorderFactory.createEmptyBorder(0, 0, 2, 0)
-            );
-        }
-    });
+       
+   
 
     }
 
@@ -186,11 +66,6 @@ public class formularioIngreso extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -273,31 +148,6 @@ public class formularioIngreso extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, -1, -1));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("INICIO");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, -1, -1));
-
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("CALATOLO");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
-
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("COLECCIONES");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, -1, -1));
-
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("BLOG");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, -1, -1));
-
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("CONTACTO");
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 60, -1, -1));
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/formulario inicio polisong.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, -1));
 
@@ -319,19 +169,15 @@ public class formularioIngreso extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         // Obtener datos de los campos
+     // Obtener datos de los campos
     String correo = jTextField1.getText().trim().toLowerCase();
     String contrasena = String.valueOf(jPasswordField1.getPassword()).trim();
-    
 
-
-   
-    
-        // Resetear bordes antes de comenzar
+    // Resetear bordes antes de comenzar
     jTextField1.setBorder(bordeOriginal);
     jPasswordField1.setBorder(bordeOriginal);
-    
-        // 1. Validar campos vacíos
+
+    // 1. Validar campos vacíos
     if (correo.isEmpty() || contrasena.isEmpty()) {
         JOptionPane.showMessageDialog(this, 
             "Por favor llene todos los campos.", 
@@ -342,7 +188,7 @@ public class formularioIngreso extends javax.swing.JFrame {
             jTextField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         }
         
-         if (contrasena.isEmpty()) {
+        if (contrasena.isEmpty()) {
             jPasswordField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         }
          
@@ -357,11 +203,10 @@ public class formularioIngreso extends javax.swing.JFrame {
             JOptionPane.WARNING_MESSAGE);
         
         jTextField1.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-
         return;
     }
     
-    // 3. Validar correo que termine en "@correo.com"
+    // 3. Validar correo que termine en "@gmail.com"
     if (!correo.endsWith("@gmail.com")) {
         JOptionPane.showMessageDialog(this,
         "El correo debe terminar en '@gmail.com'.",
@@ -383,65 +228,59 @@ public class formularioIngreso extends javax.swing.JFrame {
         return;
     }
     
-            // ---- AQUI SE INTEGRA CON LA BASE DE DATOS ----
+    // ---- AQUI SE INTEGRA CON LA BASE DE DATOS ----
     UsuarioController controller = new UsuarioController();
     Usuario u = controller.autenticarUsuario(correo, contrasena);
-    
 
     if (u == null) {
         JOptionPane.showMessageDialog(this,
             "El usuario no está registrado.",
             "Error",
             JOptionPane.ERROR_MESSAGE);
-
         return;
     }
     
     if (u.getNombre() == null) {
-    // Usuario existe pero contraseña mal
-    JOptionPane.showMessageDialog(this,
-        "Contraseña incorrecta.",
-        "Error",
-        JOptionPane.ERROR_MESSAGE
-    );
-    return;
-}
-/*
-    // LOGIN EXITOSO
-    JOptionPane.showMessageDialog(this,
-        "Inicio de sesión exitoso.\nBienvenido " + u.getNombre(),
-        "Bienvenido",
-        JOptionPane.INFORMATION_MESSAGE);*/
-
-  
-    
-    
-        // Buscar usuario
-      //Usuario u = gestorUsuarios.buscarUsuario(correo);
-      
-     /* 
-      if (u == null) {
-        JOptionPane.showMessageDialog(this, "El usuario no existe o no está registrado.");
+        // Usuario existe pero contraseña mal
+        JOptionPane.showMessageDialog(this,
+            "Contraseña incorrecta.",
+            "Error",
+            JOptionPane.ERROR_MESSAGE
+        );
         return;
-    }*/
+    }
 
-        if (!u.getContrasena().equals(contrasena)) {
+    if (!u.getContrasena().equals(contrasena)) {
         JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
         return;
-        }
+    }
         
     gestorUsuarios.usuarioActual = u;
     
-       // 5. Si todo está correcto
+    // 5. Si todo está correcto
     JOptionPane.showMessageDialog(this, 
-        "Inicio de sesión exitoso.", 
+        "Inicio de sesión exitoso.\nBienvenido " + u.getNombre(), 
         "Bienvenido", 
         JOptionPane.INFORMATION_MESSAGE);
-    
-            // 6. Redirigir al frame de inicio de sesión
-    pantallaInicio login = new pantallaInicio();  
-    login.setVisible(true);
-    this.dispose();
+
+    // 6. REDIRECCIÓN SEGÚN EL ROL ----------------------------------------
+    String rol = u.getRol();  // Asegúrate que tu clase Usuario tenga getRol()
+
+    if (rol.equalsIgnoreCase("comprador")) {
+
+        pantallaInicio menuComprador = new pantallaInicio(u);
+        menuComprador.setVisible(true);
+        this.dispose();
+
+    } if (rol.equalsIgnoreCase("proveedor")) {
+
+        VinilosProveedor ventanaProv = new VinilosProveedor(u);
+        ventanaProv.setVisible(true);
+        this.dispose();
+
+    } else {
+        ;
+    }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -487,11 +326,6 @@ public class formularioIngreso extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

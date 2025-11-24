@@ -5,6 +5,7 @@
 package com.polisong.view;
 
 import com.polisong.controller.ViniloController;
+import com.polisong.model.Usuario;
 import com.polisong.model.Vinilo;
 import java.awt.Color;
 import java.awt.Font;
@@ -30,9 +31,11 @@ public class VinilosProveedor extends javax.swing.JFrame {
      * Creates new form VinilosProveedor
      */
     
+    private Usuario proveedorActual;
     
-    public VinilosProveedor() {
+    public VinilosProveedor(Usuario proveedor) {
         initComponents();
+        this.proveedorActual = proveedor;
         this.setLocationRelativeTo(null);
         personalizarTabla();
         cargarVinilosEnTabla();
@@ -45,6 +48,12 @@ personalizarBoton(btnEliminar);
 
 
     }
+    
+    
+    public VinilosProveedor() {
+    initComponents();
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,9 +149,10 @@ personalizarBoton(btnEliminar);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-    RegistrarVinilo rv = new RegistrarVinilo();
+    RegistrarVinilo rv = new RegistrarVinilo(proveedorActual);
     rv.setVisible(true);
     rv.setLocationRelativeTo(null); // centrar ventana
+    this.dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -159,18 +169,9 @@ personalizarBoton(btnEliminar);
     }
 
     int id = (int) TablaVinilosP.getValueAt(fila, 0);
-    String nombre = TablaVinilosP.getValueAt(fila, 1).toString();
-    String artista = TablaVinilosP.getValueAt(fila, 2).toString();
-    String anio = TablaVinilosP.getValueAt(fila, 3).toString();
-    String precio = TablaVinilosP.getValueAt(fila, 4).toString();
-    String stock = TablaVinilosP.getValueAt(fila, 5).toString();
-    String descripcion = TablaVinilosP.getValueAt(fila, 6).toString();
 
-    EditarVinilo editar = new EditarVinilo(this, true);
-
-    // 👉 Cargar datos en la ventana
-    editar.cargarDatos(id, nombre, artista, anio, precio, stock, descripcion);
-
+    // Abrir EditarVinilo pasando proveedorActual y id
+    EditarVinilo editar = new EditarVinilo(this, true, proveedorActual, id);
     editar.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -411,7 +412,7 @@ personalizarBoton(btnEliminar);
     modelo.setRowCount(0);
 
     ViniloController controller = new ViniloController();
-    List<Vinilo> lista = controller.listarVinilos(3);
+    List<Vinilo> lista = controller.listarVinilos(proveedorActual.getIdUsuario());
 
     for (Vinilo v : lista) {
         modelo.addRow(new Object[]{

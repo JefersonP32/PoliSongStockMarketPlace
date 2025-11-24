@@ -189,7 +189,7 @@ public class FormularioRecopilacion extends javax.swing.JDialog {
         boolean exito = controller.crearRecopilacion(
                 nom,
                 desc,
-                1,
+                ventanaPadre.idUsuario,
                 esPublica
         );
 
