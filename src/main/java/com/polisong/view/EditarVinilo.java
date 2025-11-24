@@ -1,21 +1,45 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package com.polisong.view;
+
+import com.polisong.controller.ViniloController;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+
+
+
 
 /**
  *
  * @author Jeferson
  */
-public class EditarVinilo extends javax.swing.JFrame {
+public class EditarVinilo extends javax.swing.JDialog {
 
     /**
      * Creates new form EditarVinilo
+     * 
      */
-    public EditarVinilo() {
+    private final VinilosProveedor ventanaPadre;
+    
+    public EditarVinilo(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
+        personalizarBotonEditar();
+        this.ventanaPadre = (VinilosProveedor) parent;
+        setLocationRelativeTo(parent);
     }
+    
+    private int idVinilo;
+    private int idProveedor; // el proveedor logueado
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,21 +50,162 @@ public class EditarVinilo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel2 = new javax.swing.JLabel();
+        Nombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        Artista = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        Anio = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        Precio = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        Stock = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        btnEditar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Descripcion = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Nombre");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, 70, -1));
+
+        Nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, 390, 30));
+
+        jLabel3.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("Artista");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 50, -1));
+        getContentPane().add(Artista, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 180, 170, 30));
+
+        jLabel4.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setText("Año de Salida");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, -1, -1));
+        getContentPane().add(Anio, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 180, 180, 30));
+
+        jLabel5.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel5.setText("Precio");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, -1, -1));
+        getContentPane().add(Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, 170, 30));
+
+        jLabel6.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setText("Stock");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 230, 40, -1));
+        getContentPane().add(Stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 250, 180, 30));
+
+        jLabel7.setFont(new java.awt.Font("Bahnschrift", 3, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setText("Descripción");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 300, -1, -1));
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, -1, -1));
+
+        Descripcion.setColumns(20);
+        Descripcion.setRows(5);
+        jScrollPane1.setViewportView(Descripcion);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, 390, 90));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/EditarVinilo.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+    String nombre = Nombre.getText().trim();
+    String artista = Artista.getText().trim();
+    String anioStr = Anio.getText().trim();
+    String precioStr = Precio.getText().trim();
+    String stockStr = Stock.getText().trim();
+    String descripcion = Descripcion.getText().trim();
+
+    // 2. Validar campos vacíos
+    if (nombre.isEmpty() || artista.isEmpty() || anioStr.isEmpty() ||
+        precioStr.isEmpty() || stockStr.isEmpty() || descripcion.isEmpty()) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Debe completar todos los campos.",
+                "Campos incompletos",
+                JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    // 3. Validar valores numéricos
+    int anio, stock;
+    double precio;
+
+    try {
+        anio = Integer.parseInt(anioStr);
+        if (anio <= 0) throw new NumberFormatException();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Ingrese un año válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        precio = Double.parseDouble(precioStr);
+        if (precio <= 0) throw new NumberFormatException();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Ingrese un precio válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        stock = Integer.parseInt(stockStr);
+        if (stock < 0) throw new NumberFormatException();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Ingrese un stock válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // 4. Llamar al controller
+    ViniloController controller = new ViniloController();
+    String resultado = controller.editarVinilo(
+            1,
+            nombre,
+            artista,
+            anio,
+            precio,
+            stock,
+            descripcion,
+            3 // proveedor logueado
+    );
+
+    // 5. Mostrar el resultado
+    JOptionPane.showMessageDialog(this, resultado);
+    ventanaPadre.cargarVinilosEnTabla();
+    dispose();
+
+    // 6. Cerrar la ventana
+    this.dispose();
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -69,14 +234,96 @@ public class EditarVinilo extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditarVinilo().setVisible(true);
+                EditarVinilo dialog = new EditarVinilo(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
+    
+    
+    public void cargarDatos(int id, String nombre, String artista, String anio, 
+                        String precio, String stock, String descripcion) {
+
+    Nombre.setText(nombre);
+    Artista.setText(artista);
+    Anio.setText(anio);
+    Precio.setText(precio);
+    Stock.setText(stock);
+    Descripcion.setText(descripcion);
+}
+    
+    
+    private void personalizarBotonEditar() {
+
+    // Azul normal y hover
+    Color colorNormal = new Color(52, 152, 219);   // Azul suave
+    Color colorHover = new Color(41, 128, 185);    // Azul más oscuro
+
+    btnEditar.setBackground(colorNormal);
+    btnEditar.setForeground(Color.WHITE);
+    btnEditar.setFont(new java.awt.Font("Bahnschrift", java.awt.Font.BOLD, 14));
+    btnEditar.setOpaque(false);
+    btnEditar.setContentAreaFilled(false);
+    btnEditar.setBorderPainted(false);
+    btnEditar.setFocusPainted(false);
+    btnEditar.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
+
+    btnEditar.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+        @Override
+        public void paint(Graphics g, JComponent c) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Fondo redondeado
+            g2.setColor(btnEditar.getBackground());
+            g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
+
+            g2.dispose();
+            super.paint(g, c);
+        }
+    });
+
+    btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            btnEditar.setBackground(colorHover);
+            btnEditar.repaint();
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            btnEditar.setBackground(colorNormal);
+            btnEditar.repaint();
+        }
+    });
+}
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Anio;
+    private javax.swing.JTextField Artista;
+    private javax.swing.JTextArea Descripcion;
+    private javax.swing.JTextField Nombre;
+    private javax.swing.JTextField Precio;
+    private javax.swing.JTextField Stock;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

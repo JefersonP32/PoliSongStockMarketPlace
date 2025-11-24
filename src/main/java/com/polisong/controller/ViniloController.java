@@ -60,7 +60,7 @@ public class ViniloController {
 }
 
      
-     public String editarVinilo(int idVinilo, String nombre, String artista, int anio, double precio, int stock, String descripcion, int idProveedor) {
+     public String editarVinilo(int idVinilo,String nombre, String artista, int anio, double precio, int stock, String descripcion, int idProveedor) {
     // Validaciones
     if (idVinilo <= 0) return "El ID del vinilo no es válido.";
     if (nombre == null || nombre.trim().isEmpty()) return "El nombre del vinilo no puede estar vacío.";

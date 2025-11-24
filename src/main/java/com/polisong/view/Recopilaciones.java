@@ -156,7 +156,7 @@ public class Recopilaciones extends javax.swing.JFrame {
                 BtnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 90, 40));
+        getContentPane().add(BtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 90, 40));
 
         inicio.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
         inicio.setText("Inicio");

@@ -10,11 +10,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +29,8 @@ public class VinilosProveedor extends javax.swing.JFrame {
     /**
      * Creates new form VinilosProveedor
      */
+    
+    
     public VinilosProveedor() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -104,12 +109,27 @@ personalizarBoton(btnEliminar);
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 710, 340));
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, -1));
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 540, -1, -1));
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 540, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 102));
@@ -118,6 +138,81 @@ personalizarBoton(btnEliminar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+    RegistrarVinilo rv = new RegistrarVinilo();
+    rv.setVisible(true);
+    rv.setLocationRelativeTo(null); // centrar ventana
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int fila = TablaVinilosP.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Selecciona un vinilo para editar.",
+                "Aviso",
+                JOptionPane.PLAIN_MESSAGE
+        );
+        return;
+    }
+
+    int id = (int) TablaVinilosP.getValueAt(fila, 0);
+    String nombre = TablaVinilosP.getValueAt(fila, 1).toString();
+    String artista = TablaVinilosP.getValueAt(fila, 2).toString();
+    String anio = TablaVinilosP.getValueAt(fila, 3).toString();
+    String precio = TablaVinilosP.getValueAt(fila, 4).toString();
+    String stock = TablaVinilosP.getValueAt(fila, 5).toString();
+    String descripcion = TablaVinilosP.getValueAt(fila, 6).toString();
+
+    EditarVinilo editar = new EditarVinilo(this, true);
+
+    // 👉 Cargar datos en la ventana
+    editar.cargarDatos(id, nombre, artista, anio, precio, stock, descripcion);
+
+    editar.setVisible(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int fila = TablaVinilosP.getSelectedRow();
+
+    // 1. Validar que haya selección
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Selecciona un vinilo para eliminar.",
+                "Aviso",
+                JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    // 2. Obtener ID del vinilo (de la primera columna)
+    int idVinilo = (int) TablaVinilosP.getValueAt(fila, 0);
+
+    // 3. Confirmación
+    int opcion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Estás seguro de que deseas eliminar este vinilo?",
+            "Confirmar eliminación",
+            JOptionPane.YES_NO_OPTION
+    );
+
+    if (opcion != JOptionPane.YES_OPTION) {
+        return; // cancelar
+    }
+
+    // 4. Llamar al controller
+    ViniloController controller = new ViniloController();
+    String resultado = controller.eliminarVinilo(idVinilo);
+
+    // 5. Mostrar mensaje
+    JOptionPane.showMessageDialog(this, resultado);
+
+    // 6. Recargar tabla
+    cargarVinilosEnTabla();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,6 +425,8 @@ personalizarBoton(btnEliminar);
         });
     }
 }
+    
+    
 
 
 
